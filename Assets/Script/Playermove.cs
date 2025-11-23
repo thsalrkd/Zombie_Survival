@@ -24,7 +24,10 @@ public class Playermove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.player = this.transform;
+        }
     }
 
     // Update is called once per frame

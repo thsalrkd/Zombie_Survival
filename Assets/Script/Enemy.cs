@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     public float Speed;
     public Rigidbody2D target;
 
-    bool isLive;
+    bool isLive = true;
 
     Rigidbody2D rigid;
     SpriteRenderer spriter;
@@ -43,6 +43,15 @@ public class Enemy : MonoBehaviour
 
 
 
+
+    }
+
+    void LateUpdate()
+    {
+        if (!isLive || GameManager.Instance.player == null)
+            return;
+
+        spriter.flipX = GameManager.Instance.player.position.x < rigid.position.x;
 
     }
 }
