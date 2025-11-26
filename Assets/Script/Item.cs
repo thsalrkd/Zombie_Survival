@@ -14,7 +14,6 @@ public class Item : MonoBehaviour
         // 플레이어 태그 확인
         if (collision.CompareTag("Player"))
         {
-            // *** 변경됨: PlayerController -> Playermove ***
             // 닿은 물체(플레이어)로부터 Playermove 스크립트 가져오기
             Playermove player = collision.GetComponent<Playermove>();
 
@@ -29,7 +28,6 @@ public class Item : MonoBehaviour
     }
 
     // 아이템 효과 적용 함수
-    // *** 변경됨: 매개변수 타입 PlayerController -> Playermove ***
     void ApplyEffect(Playermove player)
     {
         switch (itemType)
@@ -71,21 +69,15 @@ public class Item : MonoBehaviour
     }
 
     // 무기 쿨타임 초기화 함수
-    // *** 변경됨: 매개변수 타입 PlayerController -> Playermove ***
     void ResetAllCooldowns(Playermove player)
     {
         // 플레이어 오브젝트의 자식(Child)에 있는 무기 스크립트들을 찾음
-        // 여기서는 예시로 WeaponSniper(저격총)의 쿨타임을 초기화하는 로직
-        // 모든 무기에 공통된 "ResetCool" 같은 함수를 만드는 것이 가장 좋음
 
         // 저격총 찾기
         WeaponSniper sniper = player.GetComponentInChildren<WeaponSniper>();
         if (sniper != null)
         {
             // 저격총 스크립트를 재시작하거나 내부 변수를 초기화해야 함
-            // 간단하게 SendMessage로 특정 함수를 부르거나, 해당 스크립트에 public 초기화 함수가 필요함
-            // 여기서는 쿨타임 변수에 직접 접근이 어려우므로 예시 주석만 남김
-            // sniper.currentTime = 100f; // 이런 식으로 쿨타임을 넘겨버려서 바로 발사되게 함
         }
 
         // 야구방망이 찾기

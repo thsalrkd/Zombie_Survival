@@ -60,8 +60,6 @@ public class GameManager : MonoBehaviour
         spawnTimer += Time.deltaTime;
 
         // 보스가 이미 소환된 상태(isBossStage)에서는 잡몹을 더 뽑을지 말지 결정
-        // 여기서는 보스전 때 잡몹 스폰을 멈추거나 천천히 나오게 할 수 있음
-        // 기획 의도에 따라 아래 if문 조건을 (timer > interval && !isBossStage)로 바꾸면 보스전 1:1 가능
         if (spawnTimer > spawnInterval)
         {
             spawnTimer = 0f;
@@ -127,9 +125,6 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        // 보스전 중이면 잡몹 스폰을 안 하려면 아래 주석 해제
-        // if (isBossStage) return; 
-
         // 현재 라운드에 맞는 잡몹 배열 선택
         GameObject[] currentMobs = (currentStage <= 3) ? round1Mobs : round2Mobs;
 
@@ -148,6 +143,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("게임 클리어! 축하합니다!");
         Time.timeScale = 0; // 게임 정지
-        // 여기에 클리어 UI 띄우기 (손미강 팀원 담당 부분 연결)
+        // 여기에 클리어 UI 띄우기
     }
 }

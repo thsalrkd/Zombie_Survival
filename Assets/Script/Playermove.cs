@@ -117,7 +117,7 @@ public class Playermove : MonoBehaviour
     {
         isInvincible = true;
 
-        // 시각적 효과: 반투명하게 깜빡임 (선택 사항)
+        // 시각적 효과: 반투명하게 깜빡임
         if (spriteRenderer != null) spriteRenderer.color = new Color(1, 1, 1, 0.5f);
 
         yield return new WaitForSeconds(invincibleTime);

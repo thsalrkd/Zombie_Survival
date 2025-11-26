@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
 
         if (type == EnemyType.Special) DropItem();
 
-        // ★★★ 추가된 부분: 보스가 죽으면 게임 매니저에게 알림 ★★★
+        //보스가 죽으면 게임 매니저에게 알림
         if (type == EnemyType.Boss)
         {
             // GameManager가 있다면 보스 처치 함수 호출

@@ -13,7 +13,7 @@ public class WeaponSunlight : MonoBehaviour
 
     void Start()
     {
-        // 범위 시각화를 위해 Collider 크기를 코드에서 맞춤 (선택사항)
+        // 범위 시각화를 위해 Collider 크기를 코드에서 맞춤
         CircleCollider2D col = GetComponent<CircleCollider2D>();
         if (col != null) range = col.radius * transform.lossyScale.x;
     }

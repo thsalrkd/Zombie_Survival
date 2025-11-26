@@ -10,7 +10,7 @@ public class WeaponSniper : MonoBehaviour
     public float bulletSpeed = 20f;// 빠른 탄속
 
     [Header("프리팹 연결")]
-    public GameObject bulletPrefab; // 총알 프리팹 (가늘고 긴 이미지 추천)
+    public GameObject bulletPrefab; // 총알 프리팹 
 
     // 내부 변수
     float currentTime = 0.0f;     // 쿨타임 계산용
@@ -18,7 +18,7 @@ public class WeaponSniper : MonoBehaviour
 
     void Start()
     {
-        // 이 스크립트는 플레이어의 자식 오브젝트로 있다고 가정
+        // 플레이어의 자식 오브젝트로 있다고 가정
         playerTransform = transform.parent;
     }
 
