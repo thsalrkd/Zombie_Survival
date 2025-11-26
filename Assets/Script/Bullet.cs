@@ -4,45 +4,41 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float damage;
-    public float speed = 10f;
-    public int per = 0; // 관통력
+    [Header("투사체 속성")]
+    public float speed = 10f;    // 날아가는 속도
+    public int damage = 3;       // 데미지
+    public bool isPenetrate = false; // 관통 여부 (true면 적을 뚫고 지나감)
+    public bool isMelee = false; // 근접 무기 여부 (true면 앞으로 날아가지 않음)
 
-    Rigidbody2D rb;
-
-    void Awake()
+    // 초기화 함수: 생성되자마자 이 함수를 호출해 정보를 셋팅함
+    public void Init(Vector2 dir, int dmg, bool penetrate, bool melee = false)
     {
-        rb = GetComponent<Rigidbody2D>();
+        damage = dmg;
+        isPenetrate = penetrate;
+        isMelee = melee;
+
+        // 날아가는 방향(Z축 회전) 설정
+        // 아크탄젠트(y, x)로 각도를 구해서 회전시킴
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        // 5초 뒤에 자동 삭제 (메모리 관리)
+        Destroy(gameObject, 5.0f);
     }
 
-    public void Init(float damage, Vector2 dir)
+    void Update()
     {
-        this.damage = damage;
-        this.per = 0; // 관통력 초기화 (0이면 1회 타격 후 삭제)
-        rb.velocity = dir * speed; // 2D 물리 속도 적용
-    }
-
-    void OnEnable()
-    {
-        Invoke("DisableBullet", 5f);
-    }
-
-    void DisableBullet()
-    {
-        gameObject.SetActive(false);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        // 관통 로직
-        if (collision.CompareTag("Enemy"))
+        // 근접 무기(방망이 등)가 아니면 앞으로 계속 날아감
+        if (!isMelee)
         {
-            per--;
-            if (per < 0)
-            {
-                rb.velocity = Vector2.zero;
-                gameObject.SetActive(false);
-            }
+            // 자신의 오른쪽(로컬 좌표계 기준 앞)으로 이동
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
+    }
+
+    // 화면 밖으로 나가면 삭제 (최적화)
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }

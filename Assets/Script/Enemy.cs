@@ -4,86 +4,84 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed = 2.5f;
-    public float hp = 20f;
-    public float maxHp = 20f;
+    public enum EnemyType { Normal, Special, Boss }
+    public EnemyType type;
 
-    // 타겟(플레이어)
-    Rigidbody2D target;
-    bool isLive = true;
+    [Header("몬스터 스탯")]
+    public int maxHp = 10;
+    public int damage = 5;
+    public float moveSpeed = 1.5f;
 
-    Rigidbody2D rb;
-    SpriteRenderer spriter;
+    int currentHp;
+    Transform playerTarget;
+    public GameObject[] dropItems;
 
-    void Awake()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        spriter = GetComponent<SpriteRenderer>();
+        currentHp = maxHp;
+        GameObject p = GameObject.FindWithTag("Player");
+        if (p != null) playerTarget = p.transform;
     }
 
-    void OnEnable()
+    void Update()
     {
-        // 활성화될 때마다 타겟과 체력 초기화
-        if (GameManager.Instance.player != null)
-        {
-            target = GameManager.Instance.player.GetComponent<Rigidbody2D>();
-        }
-        hp = maxHp;
-        isLive = true;
-    }
-
-    void FixedUpdate()
-    {
-        if (!isLive || target == null) return;
-
-        // 2D 벡터 연산
-        Vector2 dirVec = target.position - rb.position;
-        Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime;
-
-        rb.MovePosition(rb.position + nextVec);
-        rb.velocity = Vector2.zero;
-    }
-
-    void LateUpdate()
-    {
-        if (!isLive || target == null) return;
-
-        // 플레이어 위치에 따라 좌우 반전
-        spriter.flipX = target.position.x < rb.position.x;
+        if (playerTarget == null) return;
+        Vector2 dir = (playerTarget.position - transform.position).normalized;
+        transform.Translate(dir * moveSpeed * Time.deltaTime);
+        if (dir.x != 0) transform.localScale = new Vector3(dir.x > 0 ? 1 : -1, 1, 1);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isLive) return;
-
         if (collision.CompareTag("Bullet"))
         {
-            float damage = collision.GetComponent<Bullet>().damage;
-            hp -= damage;
-
-            // 총알 처리 (Bullet 내 관통 로직에 맡기거나 여기서 비활성화)
-            // collision.gameObject.SetActive(false); 
-
-            if (hp <= 0)
+            Bullet bulletScript = collision.GetComponent<Bullet>();
+            if (bulletScript != null)
             {
-                Dead();
+                TakeDamage(bulletScript.damage);
+                if (!bulletScript.isPenetrate) Destroy(collision.gameObject);
             }
         }
     }
 
-    void Dead()
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        isLive = false;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<Playermove>().ChangeHP(-damage);
+        }
+    }
 
-        // 아이템 드랍 (Index 2: 경험치 보석)
-        GameObject expGem = GameManager.Instance.pool.Get(2);
-        expGem.transform.position = transform.position;
+    public void TakeDamage(int dmg)
+    {
+        currentHp -= dmg;
+        if (currentHp <= 0) Die();
+    }
 
-        // 적 비활성화
-        gameObject.SetActive(false);
+    void Die()
+    {
+        if (playerTarget != null)
+            playerTarget.GetComponent<Playermove>().GetExp(1);
 
-        // 킬 카운트
-        if (GameManager.Instance != null)
-            GameManager.Instance.killCount++;
+        if (type == EnemyType.Special) DropItem();
+
+        // ★★★ 추가된 부분: 보스가 죽으면 게임 매니저에게 알림 ★★★
+        if (type == EnemyType.Boss)
+        {
+            // GameManager가 있다면 보스 처치 함수 호출
+            if (GameManager.instance != null)
+                GameManager.instance.OnBossDead();
+        }
+
+        Destroy(gameObject);
+    }
+
+    void DropItem()
+    {
+        if (dropItems.Length < 3) return;
+        int rand = Random.Range(0, 100);
+        if (rand < 10) Instantiate(dropItems[0], transform.position, Quaternion.identity);
+        else if (rand < 30) Instantiate(dropItems[1], transform.position, Quaternion.identity);
+        else Instantiate(dropItems[2], transform.position, Quaternion.identity);
     }
 }

@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 1210904764333456326}
   - component: {fileID: 4493755506925079971}
   m_Layer: 0
-  m_Name: Enemy A
-  m_TagString: Untagged
+  m_Name: Enemy_Normal
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,8 +184,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fd1f2770fa677419528932c58c140b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
-  target: {fileID: 0}
+  type: 0
+  maxHp: 10
+  damage: 5
+  moveSpeed: 1.5
+  dropItems:
+  - {fileID: 8200984564152888224, guid: eed6e24ff759bcd41b481a6a9b103d98, type: 3}
+  - {fileID: 1557534411919349582, guid: 5c87f88163ce75c41980c8861cba4f76, type: 3}
+  - {fileID: 3138554199286985486, guid: 05fc4efb1e7e07646bd2d24fecef9657, type: 3}
 --- !u!1 &7381680869830793959
 GameObject:
   m_ObjectHideFlags: 0
