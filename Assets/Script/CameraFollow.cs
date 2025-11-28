@@ -21,11 +21,7 @@ public class CameraFollow : MonoBehaviour
             // Z축(-10) 유지를 위해 현재 카메라 위치와 플레이어 위치 차이를 저장
             offset = transform.position - playerTransform.position;
         }
-        else
-        {
-            // 태그 설정을 깜빡했을 때 에러 대신 경고 메시지를 띄움
-            //Debug.LogWarning("주의: 'Player' 태그를 가진 오브젝트를 찾을 수 없습니다! Player 오브젝트의 Tag를 확인해주세요.");
-        }
+
     }
 
     void LateUpdate()

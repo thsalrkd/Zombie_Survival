@@ -46,13 +46,12 @@ public class WeaponBat : MonoBehaviour
         GameObject effect = Instantiate(swingEffectPrefab, spawnPos, Quaternion.identity);
 
         // 4. 이펙트 좌우 반전 (Scale X 뒤집기)
-        // (이걸 해야 낫의 날 방향도 반대쪽을 봅니다)
         Vector3 newScale = effect.transform.localScale;
         newScale.x = Mathf.Abs(newScale.x) * facingDirection;
         effect.transform.localScale = newScale;
 
-        // 5. ★ 중요: 회전 움직임 초기화 (방향 전달)
-        // SwingMovement에게 "나 지금 오른쪽(1)이야" 혹은 "왼쪽(-1)이야"라고 알려줍니다.
+        // 5. 회전 움직임 초기화 (방향 전달)
+        // SwingMovement에게 "나 지금 오른쪽(1)이야" 혹은 "왼쪽(-1)이야"라고 알려줌.
         SwingMovement swingMove = effect.GetComponent<SwingMovement>();
         if (swingMove != null)
         {
