@@ -278,6 +278,7 @@ MonoBehaviour:
   invincibleTime: 1
   level: 1
   currentExp: 0
+  movement: {x: 0, y: 0}
   isDead: 0
 --- !u!50 &485220538
 Rigidbody2D:
@@ -9007,7 +9008,6 @@ GameObject:
   - component: {fileID: 681683190}
   - component: {fileID: 681683189}
   - component: {fileID: 681683192}
-  - component: {fileID: 681683193}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9133,30 +9133,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &681683193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681683188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_AssetsPPU: 18
-  m_RefResolutionX: 135
-  m_RefResolutionY: 270
-  m_CropFrame: 0
-  m_GridSnapping: 0
-  m_FilterMode: 0
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!1 &856988333
 GameObject:
   m_ObjectHideFlags: 0
@@ -18111,7 +18087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d3ba03986935b46888fd178f53e472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Player: {fileID: 485220537}
   currentStage: 1
   stageTimer: 0
   stageDuration: 60
