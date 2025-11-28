@@ -15,7 +15,7 @@ public class Reposition : MonoBehaviour
         float diffX = Mathf.Abs(PlayerPos.x - myPos.x);
         float diffY = Mathf.Abs(PlayerPos.y - myPos.y);
 
-        Vector3 PlayerDir = GameManager.instance.player.position;
+        Vector3 PlayerDir = GameManager.instance.player.inputVector;
         float dirX = PlayerDir.x < 0 ? -1 : 1;
         float dirY = PlayerDir.y <0 ? -1 : 1;
 
