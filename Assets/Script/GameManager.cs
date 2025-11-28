@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     // 어디서든 접근 가능하게 싱글톤 처리
     public static GameManager instance;
+    public Playermove Player;
 
     [Header("스테이지 설정")]
     public int currentStage = 1;      // 현재 스테이지 (1~6)
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     // 내부 변수
     float spawnTimer = 0f;
-    Transform player;
+    public Transform player;
 
     void Awake()
     {
