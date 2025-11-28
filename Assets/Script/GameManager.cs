@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     // 내부 변수
     float spawnTimer = 0f;
-    Transform player;
+    public Transform player;
 
     void Awake()
     {

@@ -19,7 +19,7 @@ public class Playermove : MonoBehaviour
     int[] expTable = { 10, 20, 40, 70, 110, 160, 220, 290, 370 };
 
     Rigidbody2D rb;
-    Vector2 movement;
+    public Vector2 movement;
     Animator animator;
     SpriteRenderer spriteRenderer; // 스프라이트 직접 뒤집기용
     public bool isDead = false;
