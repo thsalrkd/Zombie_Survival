@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &34796674 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6637070798946692632, guid: 07ba2cb471dd406408d7d970bf7e5ca7, type: 3}
+  m_PrefabInstance: {fileID: 1148154449}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &39785546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,22 +4465,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &571066188 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1735728663123552945, guid: 07ba2cb471dd406408d7d970bf7e5ca7, type: 3}
-  m_PrefabInstance: {fileID: 1148154449}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa7d58dbfe321442b3d0ac0409065d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &571066192 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7397386579053037415, guid: 07ba2cb471dd406408d7d970bf7e5ca7, type: 3}
-  m_PrefabInstance: {fileID: 1148154449}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &596184015
 GameObject:
   m_ObjectHideFlags: 0
@@ -8778,7 +8767,6 @@ GameObject:
   - component: {fileID: 681683190}
   - component: {fileID: 681683189}
   - component: {fileID: 681683192}
-  - component: {fileID: 681683193}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8829,7 +8817,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.9444447
+  orthographic size: 7.3333335
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8853,12 +8841,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 681683188}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 34796674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &681683192
 MonoBehaviour:
@@ -8904,30 +8892,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &681683193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681683188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_AssetsPPU: 18
-  m_RefResolutionX: 135
-  m_RefResolutionY: 270
-  m_CropFrame: 0
-  m_GridSnapping: 0
-  m_FilterMode: 0
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!1 &1107894229
 GameObject:
   m_ObjectHideFlags: 0
@@ -8958,7 +8922,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 571066192}
+  m_Father: {fileID: 34796674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1107894231
 BoxCollider2D:
@@ -9060,9 +9024,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7397386579053037415, guid: 07ba2cb471dd406408d7d970bf7e5ca7, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6637070798946692632, guid: 07ba2cb471dd406408d7d970bf7e5ca7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1107894230}
+    - targetCorrespondingSourceObject: {fileID: 6637070798946692632, guid: 07ba2cb471dd406408d7d970bf7e5ca7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 681683191}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07ba2cb471dd406408d7d970bf7e5ca7, type: 3}
 --- !u!1 &1830637556
@@ -17674,7 +17641,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d3ba03986935b46888fd178f53e472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 571066188}
+  currentStage: 1
+  stageTimer: 0
+  stageDuration: 60
+  isBossStage: 0
+  round1Mobs: []
+  round2Mobs: []
+  boss1Prefab: {fileID: 0}
+  boss2Prefab: {fileID: 0}
+  spawnInterval: 1.5
+  spawnRadius: 12
+  player: {fileID: 0}
 --- !u!4 &2036503602
 Transform:
   m_ObjectHideFlags: 0
@@ -17694,7 +17671,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 681683191}
   - {fileID: 39785548}
   - {fileID: 2036503602}
   - {fileID: 1148154449}
