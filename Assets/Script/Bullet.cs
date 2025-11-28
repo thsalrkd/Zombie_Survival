@@ -8,9 +8,9 @@ public class Bullet : MonoBehaviour
     public float speed = 10f;    // 날아가는 속도
     public int damage = 3;       // 데미지
     public bool isPenetrate = false; // 관통 여부 (true면 적을 뚫고 지나감)
-    public bool isMelee = false; // 근접 무기 여부 (true면 앞으로 날아가지 않음)
+    public bool isMelee = false; // ★ 추가됨: 근접 무기 여부
 
-    // 초기화 함수: 생성되자마자 이 함수를 호출해 정보를 셋팅함
+    // ★ 수정됨: 매개변수에 'bool melee'가 추가되었습니다.
     public void Init(Vector2 dir, int dmg, bool penetrate, bool melee = false)
     {
         damage = dmg;
@@ -28,7 +28,8 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        // 근접 무기(방망이 등)가 아니면 앞으로 계속 날아감
+        // ★ 추가됨: 근접 무기(방망이)가 아닐 때만 앞으로 날아감
+        // 방망이는 휘두르는 모션 스크립트(SwingMovement)가 따로 움직여줌
         if (!isMelee)
         {
             // 자신의 오른쪽(로컬 좌표계 기준 앞)으로 이동
