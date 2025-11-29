@@ -7,7 +7,7 @@ public class SelectItem : MonoBehaviour
 {
     public ItemList data;
     public int level;
-    public WeaponBat Weapon;
+    public WeaponBat weapon;
 
     Image icon;
     Text textLevel;
@@ -51,11 +51,47 @@ public class SelectItem : MonoBehaviour
         switch (data.itemType)
         {
             case ItemList.ItemType.Basic:
+                if (level == 0)
+                {
+                    GameObject newWeapon = new GameObject();
+                    weapon = newWeapon.AddComponent<WeaponBat>();
+                    //weapon 초기화 (weapon data 연결 필요)
+                }
+                else
+                {
+                    float nextDamage = data.baseDamage;
+                    float nextCooltime = data.baseCooltime;
+                    int nextCount = 0;
+
+                    nextDamage += data.baseDamage * data.damages[level];
+                    nextCooltime -= data.baseCooltime * data.cooltime[level];
+                    nextCount += data.counts[level];
+
+                    //weapon.LevelUp(nextDamage, nextCount);
+                }
                 break;
+
             case ItemList.ItemType.Melee:
-                break;
+            case ItemList.ItemType.Rifle:
             case ItemList.ItemType.Range:
-                break;
+                if (level == 0)
+                {
+                    GameObject newWeapon = new GameObject();
+                    weapon = newWeapon.AddComponent<WeaponBat>();
+                    //weapon 초기화 (weapon data 연결 필요)
+                }
+                else
+                {
+                    float nextDamage = data.baseDamage;
+                    int nextCount = 0;
+
+                    nextDamage += data.baseDamage * data.damages[level];
+                    nextCount += data.counts[level];
+
+                    //weapon.LevelUp(nextDamage, nextCount);
+                }
+                    break;
+            
             case ItemList.ItemType.Glove:
                 break;
             case ItemList.ItemType.Shoe:

@@ -20,6 +20,9 @@ public class WeaponSunlight : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         timer += Time.deltaTime;
 
         if (timer >= tickRate)

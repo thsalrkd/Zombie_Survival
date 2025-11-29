@@ -28,6 +28,9 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         // ★ 추가됨: 근접 무기(방망이)가 아닐 때만 앞으로 날아감
         // 방망이는 휘두르는 모션 스크립트(SwingMovement)가 따로 움직여줌
         if (!isMelee)

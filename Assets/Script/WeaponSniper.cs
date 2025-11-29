@@ -24,6 +24,9 @@ public class WeaponSniper : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         // 쿨타임 계산
         currentTime += Time.deltaTime;
 

@@ -29,7 +29,8 @@ public class GameManager : MonoBehaviour
     float spawnTimer = 0f;
     public Transform player;
 
-    public LevelUp uiLevelUp;
+    [Header("UI 관련 설정")]
+    public bool isLive;
 
     void Awake()
     {
@@ -44,6 +45,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (!isLive)
+            return;
+
         if (player == null) return;
 
         // --- 스테이지 관리 로직 ---
@@ -147,5 +151,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("게임 클리어! 축하합니다!");
         Time.timeScale = 0; // 게임 정지
         // 여기에 클리어 UI 띄우기
+    }
+
+    public void Stop()
+    {
+        isLive = false;
+        Time.timeScale = 0;
+    }
+
+    public void Resume()
+    {
+        isLive = true;
+        Time.timeScale = 1;
+
     }
 }
