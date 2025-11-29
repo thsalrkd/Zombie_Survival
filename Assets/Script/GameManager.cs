@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     float spawnTimer = 0f;
     public Transform player;
 
+    public LevelUp uiLevelUp;
+
     void Awake()
     {
         instance = this; // 나 자신을 전역 변수에 할당
