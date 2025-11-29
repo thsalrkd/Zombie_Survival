@@ -31,6 +31,8 @@ public class SwingMovement : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
         // 무조건 내려치기 (-Speed)
         transform.Rotate(0, 0, -swingSpeed * Time.deltaTime);
     }

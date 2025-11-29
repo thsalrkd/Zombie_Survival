@@ -34,6 +34,9 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         if (isDead) return;
         if (playerTarget == null) return;
 

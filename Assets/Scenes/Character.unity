@@ -803,6 +803,7 @@ MonoBehaviour:
   spawnInterval: 1.5
   spawnRadius: 12
   player: {fileID: 0}
+  isLive: 1
 --- !u!4 &1399667920
 Transform:
   m_ObjectHideFlags: 0
@@ -859,6 +860,7 @@ MonoBehaviour:
   currentExp: 0
   movement: {x: 0, y: 0}
   isDead: 0
+  uiLevelUp: {fileID: 0}
 --- !u!50 &1544499807
 Rigidbody2D:
   serializedVersion: 4
@@ -1061,7 +1063,7 @@ MonoBehaviour:
   damage: 8
   coolTime: 1.5
   swingEffectPrefab: {fileID: 8802170020575785831, guid: 67a342c5082c6d14aa9820a7f371ae96, type: 3}
-  attackRange: 2
+  spawnOffset: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -25,6 +25,9 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         if (player == null) return; // 플레이어가 죽으면 스폰 중단
 
         timer += Time.deltaTime;

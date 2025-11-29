@@ -16,13 +16,14 @@ public class Playermove : MonoBehaviour
     [Header("레벨 시스템")]
     public int level = 1;
     public int currentExp = 0;
-    int[] expTable = { 10, 20, 40, 70, 110, 160, 220, 290, 370 };
+    public int[] expTable = { 10, 20, 40, 70, 110, 160, 220, 290, 370 };
 
     Rigidbody2D rb;
     public Vector2 movement;
     Animator animator;
     SpriteRenderer spriteRenderer; // 스프라이트 직접 뒤집기용
     public bool isDead = false;
+    public LevelUp uiLevelUp;
 
     void Start()
     {
@@ -34,6 +35,9 @@ public class Playermove : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+
         if (isDead) return;
 
         // --- 이동 입력 ---
@@ -84,6 +88,7 @@ public class Playermove : MonoBehaviour
         currentExp -= expTable[level - 1];
         level++;
         Debug.Log("레벨 업!");
+        uiLevelUp.Show();
     }
 
     // 체력 변경 함수 (무적 로직 추가됨)

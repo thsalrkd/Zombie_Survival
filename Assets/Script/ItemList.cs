@@ -17,6 +17,7 @@ public class ItemList : ScriptableObject
 
     [Header("Level Data")]
     public float baseDamage;
+    public float baseCooltime;
     public int baseCount;
     public float[] damages;
     public float[] cooltime;
