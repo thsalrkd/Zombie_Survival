@@ -263,9 +263,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 85dd81f185b6aaf46be0463d3e0416c6, type: 2}
   level: 0
-  weaponbat: {fileID: 0}
-  weaponspiner: {fileID: 0}
-  weaponsunlight: {fileID: 0}
 --- !u!114 &143567875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,9 +426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 1cd023160bc39d64d821177547666d41, type: 2}
   level: 0
-  weaponbat: {fileID: 0}
-  weaponspiner: {fileID: 0}
-  weaponsunlight: {fileID: 0}
 --- !u!114 &155828783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,9 +727,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 026a9b54de92ac54fb94a8b6d570bc38, type: 2}
   level: 0
-  weaponbat: {fileID: 0}
-  weaponspiner: {fileID: 0}
-  weaponsunlight: {fileID: 0}
 --- !u!114 &263693326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,7 +1304,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 4243587601145829122, guid: 80950f260ca4f4343a80de42c38ed627, type: 3}
+  - {fileID: 8840565144200898460, guid: 34d1b78988d841c4b875f168f3686eaf, type: 3}
   - {fileID: 8326658239605647332, guid: 3c26733fc2ec07d46b9bdbf7540b9a0c, type: 3}
+  - {fileID: 6883431874515971560, guid: 35722f8ea749b0c4db134925f5368dd9, type: 3}
   spawnInterval: 2
   spawnRadius: 15
   timeAfterSpawn: 0
@@ -3181,9 +3174,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: d43c6a4361cfcb44dbb3c0c8b400d132, type: 2}
   level: 0
-  weaponbat: {fileID: 0}
-  weaponspiner: {fileID: 0}
-  weaponsunlight: {fileID: 0}
 --- !u!114 &913537518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3573,9 +3563,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 0e7b0d7dee8cf9a4c8a7313959faf713, type: 2}
   level: 0
-  weaponbat: {fileID: 0}
-  weaponspiner: {fileID: 0}
-  weaponsunlight: {fileID: 0}
 --- !u!114 &1046854473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8473,16 +8460,8 @@ MonoBehaviour:
   stageTimer: 0
   stageDuration: 60
   isBossStage: 0
-  round1Mobs:
-  - {fileID: 4243587601145829122, guid: 80950f260ca4f4343a80de42c38ed627, type: 3}
-  - {fileID: 8326658239605647332, guid: 3c26733fc2ec07d46b9bdbf7540b9a0c, type: 3}
-  round2Mobs:
-  - {fileID: 0}
-  - {fileID: 0}
   boss1Prefab: {fileID: 0}
   boss2Prefab: {fileID: 0}
-  spawnInterval: 1.5
-  spawnRadius: 12
   player: {fileID: 1544499810}
   isLive: 0
   uiResult: {fileID: 407380719}
@@ -9160,6 +9139,7 @@ MonoBehaviour:
   moveSpeed: 4
   maxHP: 100
   currentHP: 0
+  killCount: 0
   invincibleTime: 1
   level: 1
   currentExp: 0
@@ -23183,9 +23163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ccaddeee6f3c68b419e3f0518853d4f8, type: 2}
   level: 0
-  weaponbat: {fileID: 0}
-  weaponspiner: {fileID: 0}
-  weaponsunlight: {fileID: 0}
 --- !u!114 &1933801620
 MonoBehaviour:
   m_ObjectHideFlags: 0
