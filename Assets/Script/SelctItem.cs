@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,9 @@ public class SelectItem : MonoBehaviour
 {
     public ItemList data;
     public int level;
-    public WeaponBat weapon;
+    public WeaponBat weaponbat;
+    public WeaponSniper weaponspiner;
+    public WeaponSunlight weaponsunlight;
 
     Image icon;
     Text textLevel;
@@ -30,7 +33,8 @@ public class SelectItem : MonoBehaviour
     {
         textLevel.text = "Lv." + (level + 1);
 
-        switch(data.itemType){
+        switch (data.itemType)
+        {
             case ItemList.ItemType.Basic:
                 textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level] * 100, data.counts[level]); ;
                 break;
@@ -51,47 +55,13 @@ public class SelectItem : MonoBehaviour
         switch (data.itemType)
         {
             case ItemList.ItemType.Basic:
-                if (level == 0)
-                {
-                    GameObject newWeapon = new GameObject();
-                    weapon = newWeapon.AddComponent<WeaponBat>();
-                    //weapon 초기화 (weapon data 연결 필요)
-                }
-                else
-                {
-                    float nextDamage = data.baseDamage;
-                    float nextCooltime = data.baseCooltime;
-                    int nextCount = 0;
-
-                    nextDamage += data.baseDamage * data.damages[level];
-                    nextCooltime -= data.baseCooltime * data.cooltime[level];
-                    nextCount += data.counts[level];
-
-                    //weapon.LevelUp(nextDamage, nextCount);
-                }
                 break;
-
             case ItemList.ItemType.Melee:
+                break;
             case ItemList.ItemType.Rifle:
+                break;
             case ItemList.ItemType.Range:
-                if (level == 0)
-                {
-                    GameObject newWeapon = new GameObject();
-                    weapon = newWeapon.AddComponent<WeaponBat>();
-                    //weapon 초기화 (weapon data 연결 필요)
-                }
-                else
-                {
-                    float nextDamage = data.baseDamage;
-                    int nextCount = 0;
-
-                    nextDamage += data.baseDamage * data.damages[level];
-                    nextCount += data.counts[level];
-
-                    //weapon.LevelUp(nextDamage, nextCount);
-                }
-                    break;
-            
+                break;
             case ItemList.ItemType.Glove:
                 break;
             case ItemList.ItemType.Shoe:
@@ -100,9 +70,9 @@ public class SelectItem : MonoBehaviour
 
         level++;
 
-        if(level == data.damages.Length)
+        if(level == data.damages.Length + 1)
         {
-            GetComponent<Button>().interactable = false;
+            GetComponent<Button>().interactable = false; //클릭 X
         }
     }
 }
