@@ -5,8 +5,8 @@ using UnityEngine;
 public class WeaponSniper : MonoBehaviour
 {
     [Header("저격총 스펙")]
-    public int damage = 10;        // 높은 데미지
-    public float coolTime = 4.0f;  // 긴 쿨타임
+    public int damage = 7;        // 높은 데미지
+    public float coolTime = 5.0f;  // 긴 쿨타임
     public float bulletSpeed = 20f;// 빠른 탄속
 
     [Header("프리팹 연결")]
@@ -77,5 +77,16 @@ public class WeaponSniper : MonoBehaviour
             }
         }
         return nearest;
+    }
+
+    public void LevelUp(float damageRate, float coolTimeRate)
+    {
+        this.damage += (int)damageRate; // 데미지 1 증가
+        this.coolTime -= coolTimeRate;  // 쿨타임 1.0 감소
+
+        // 저격총은 너무 빠르면 안되므로 0.5초 제한
+        if (this.coolTime < 0.5f) this.coolTime = 0.5f;
+
+        Debug.Log("저격총 강화! 데미지: " + this.damage + ", 쿨타임: " + this.coolTime);
     }
 }

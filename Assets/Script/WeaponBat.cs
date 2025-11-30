@@ -5,8 +5,8 @@ using UnityEngine;
 public class WeaponBat : MonoBehaviour
 {
     [Header("야구방망이 스펙")]
-    public int damage = 8;       // 공격력
-    public float coolTime = 1.5f; // 공격 속도 (쿨타임)
+    public int damage = 5;       // 공격력
+    public float coolTime = 3.0f; // 공격 속도 (쿨타임)
 
     [Header("프리팹 및 설정")]
     public GameObject swingEffectPrefab; // 이펙트 프리팹 연결
@@ -72,5 +72,17 @@ public class WeaponBat : MonoBehaviour
 
         // 7. 0.3초 뒤 삭제 (애니메이션 끝나면 사라짐)
         Destroy(effect, 0.3f);
+    }
+
+    // 레벨업 함수 (Bat)
+    public void LevelUp(float damageRate, float coolTimeRate)
+    {
+        this.damage += (int)damageRate; // 데미지 1 증가
+        this.coolTime -= coolTimeRate;  // 쿨타임 0.5 감소
+
+        // 근접 무기 속도 제한 (너무 빠르면 모션이 꼬일 수 있음)
+        if (this.coolTime < 0.3f) this.coolTime = 0.3f;
+
+        Debug.Log("방망이 강화! 데미지: " + this.damage + ", 쿨타임: " + this.coolTime);
     }
 }

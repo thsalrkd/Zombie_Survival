@@ -50,29 +50,82 @@ public class SelectItem : MonoBehaviour
         }
     }
 
+    // SelectItem.cs 안의 OnClick 함수 부분
+
     public void OnClick()
     {
+        // GameManager를 통해 플레이어 가져오기
+        Playermove player = GameManager.instance.Player;
+
         switch (data.itemType)
         {
-            case ItemList.ItemType.Basic:
+            case ItemList.ItemType.Melee: // 야구방망이
+                // ★ 중요: (true)를 넣어야 비활성화된(꺼진) 오브젝트도 찾을 수 있습니다!
+                WeaponBat bat = player.GetComponentInChildren<WeaponBat>(true);
+
+                if (bat != null)
+                {
+                    // 1. 꺼져있다면? -> 켜준다 (해금)
+                    if (!bat.gameObject.activeSelf)
+                    {
+                        bat.gameObject.SetActive(true);
+                        // 처음 켰을 때 기본 데미지 설정 (데이터의 0번 인덱스 사용)
+                        bat.LevelUp(data.damages[0], data.cooltime[0]);
+                    }
+                    else // 2. 켜져있다면? -> 강화한다 (LevelUp)
+                    {
+                        // 현재 레벨에 맞는 수치만큼 강화
+                        bat.LevelUp(data.damages[level], data.cooltime[level]);
+                    }
+                }
                 break;
-            case ItemList.ItemType.Melee:
+
+            case ItemList.ItemType.Rifle: // 저격총
+                WeaponSniper sniper = player.GetComponentInChildren<WeaponSniper>(true);
+                if (sniper != null)
+                {
+                    if (!sniper.gameObject.activeSelf)
+                    {
+                        sniper.gameObject.SetActive(true); // 해금
+                        sniper.LevelUp(data.damages[0], data.cooltime[0]);
+                    }
+                    else
+                    {
+                        sniper.LevelUp(data.damages[level], data.cooltime[level]); // 강화
+                    }
+                }
                 break;
-            case ItemList.ItemType.Rifle:
+
+            case ItemList.ItemType.Range: // 태양빛
+                WeaponSunlight sun = player.GetComponentInChildren<WeaponSunlight>(true);
+                if (sun != null)
+                {
+                    if (!sun.gameObject.activeSelf)
+                    {
+                        sun.gameObject.SetActive(true); // 해금
+                        sun.LevelUp(data.damages[0], data.counts[0]);
+                    }
+                    else
+                    {
+                        sun.LevelUp(data.damages[level], data.counts[level]); // 강화
+                    }
+                }
                 break;
-            case ItemList.ItemType.Range:
-                break;
-            case ItemList.ItemType.Glove:
-                break;
-            case ItemList.ItemType.Shoe:
+
+            case ItemList.ItemType.Heal: // 회복 (이건 강화 개념이 없으므로 바로 적용)
+                player.ChangeHP((int)data.baseDamage);
                 break;
         }
 
-        level++;
+        level++; // 아이템 카드 레벨 증가
 
-        if(level == data.damages.Length + 1)
+        // 만렙 도달 시 버튼 비활성화 (선택 사항)
+        if (level >= data.damages.Length)
         {
-            GetComponent<Button>().interactable = false; //클릭 X
+            GetComponent<Button>().interactable = false;
         }
+
+        // 창 닫기
+        GetComponentInParent<LevelUp>().Hide();
     }
 }
