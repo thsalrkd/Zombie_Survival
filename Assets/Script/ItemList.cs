@@ -21,7 +21,7 @@ public class ItemList : ScriptableObject
     public int baseCount;
     public float[] damages;
     public float[] cooltime;
-    public int[] counts;
+    public float[] counts;
 
     [Header("Weapon")]
     public GameObject projectile;

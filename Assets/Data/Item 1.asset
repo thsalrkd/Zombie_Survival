@@ -18,12 +18,18 @@ MonoBehaviour:
   itemDesc: "\uB370\uBBF8\uC9C0 {0}% \uC99D\uAC00 \n\uCFE8\uD0C0\uC784 {1}% \uAC10\uC18C"
   itemIcon: {fileID: -344242777, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 3
+  baseCooltime: 0
   baseCount: 1
   damages:
-  - 0.5
+  - 1
+  - 1
   - 1
   cooltime:
-  - 0.3
-  - 1
-  counts: 
-  projectile: {fileID: 629193514590916323, guid: 4ab23311e575a4640b2224fd4c628f3e, type: 3}
+  - 0.5
+  - 0.5
+  - 0.5
+  counts:
+  - 0
+  - 0
+  - 0
+  projectile: {fileID: 8802170020575785831, guid: 67a342c5082c6d14aa9820a7f371ae96, type: 3}
