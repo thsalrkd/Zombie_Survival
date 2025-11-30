@@ -15,21 +15,22 @@ MonoBehaviour:
   itemType: 0
   itemId: 0
   itemName: "\uAD8C\uCD1D"
-  itemDesc: "\uB370\uBBF8\uC9C0 {0}% \uC99D\uAC00\n\uCFE8\uD0C0\uC784 {1}% \uAC10\uC18C"
+  itemDesc: "\uB370\uBBF8\uC9C0 {0}% \uC99D\uAC00\n\uCFE8\uD0C0\uC784 {1}\uCD08 \uAC10\uC18C\n\uD0D0\uC218
+    {2}\uAC1C \uC99D\uAC00"
   itemIcon: {fileID: -205726582, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
-  baseDamage: 3
-  baseCooltime: 0
-  baseCount: 0
+  baseDamage: 5
+  baseCooltime: 3
+  baseCount: 1
   damages:
-  - 0
-  - 1
-  - 1
+  - 0.2
+  - 0.2
+  - 0.2
   cooltime:
-  - 0
+  - 0.5
   - 0.5
   - 0.5
   counts:
-  - 0
-  - 0
-  - 0
+  - 1
+  - 1
+  - 1
   projectile: {fileID: 3602249667650922769, guid: 785b44cbcc5100445bfc338df1bf68aa, type: 3}
