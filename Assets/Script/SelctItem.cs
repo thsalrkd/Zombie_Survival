@@ -56,44 +56,69 @@ public class SelectItem : MonoBehaviour
             case ItemList.ItemType.Melee:
             case ItemList.ItemType.Rifle:
             case ItemList.ItemType.Range:
-                // 기존 무기 로직
+
                 if (data.itemType == ItemList.ItemType.Melee)
                 {
                     WeaponBat w = player.GetComponentInChildren<WeaponBat>(true);
-                    if (!w.gameObject.activeSelf) w.gameObject.SetActive(true);
-                    else w.damage += (int)data.damages[level];
+                    if (!w.gameObject.activeSelf)
+                    {
+                        w.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        // 단순히 damage만 더하는 게 아니라, 쿨타임도 줄여주는 LevelUp 함수 호출
+                        w.LevelUp(data.damages[level], data.cooltime[level]);
+                    }
                 }
                 else if (data.itemType == ItemList.ItemType.Rifle)
                 {
                     WeaponSniper w = player.GetComponentInChildren<WeaponSniper>(true);
-                    if (!w.gameObject.activeSelf) w.gameObject.SetActive(true);
-                    else w.damage += (int)data.damages[level];
+                    if (!w.gameObject.activeSelf)
+                    {
+                        w.gameObject.SetActive(true);
+                        w.LevelUp(data.damages[0], data.cooltime[0]);
+                    }
+                    else
+                    {
+                        // 데미지 + 쿨타임 감소 함수 호출
+                        w.LevelUp(data.damages[level], data.cooltime[level]);
+                    }
                 }
                 else if (data.itemType == ItemList.ItemType.Range)
                 {
                     WeaponSunlight w = player.GetComponentInChildren<WeaponSunlight>(true);
-                    if (!w.gameObject.activeSelf) w.gameObject.SetActive(true);
-                    else w.damage += (int)data.damages[level];
+                    if (!w.gameObject.activeSelf)
+                    {
+                        w.gameObject.SetActive(true);
+                        w.LevelUp(data.damages[0], data.counts[0]);
+                    }
+                    else
+                    {
+                        // 데미지 + 범위(counts) 증가 함수 호출
+                        w.LevelUp(data.damages[level], data.counts[level]);
+                    }
                 }
                 level++;
                 break;
 
-            // ★ 추가됨: 스탯 아이템 로직
             case ItemList.ItemType.Shoe:
-                // 이동속도 0.5 증가 (무제한 강화)
+                // 이동속도 0.5 증가
                 player.moveSpeed += 0.5f;
                 Debug.Log("이동속도 증가! 현재: " + player.moveSpeed);
                 break;
 
             case ItemList.ItemType.Glove:
-                // 모든 무기 쿨타임 0.3초 감소 (무제한 강화)
+                // 모든 무기 쿨타임 0.3초 감소
                 player.ReduceCooldownAllWeapons(0.3f);
                 Debug.Log("공격속도 증가!");
                 break;
         }
 
-        // 무기가 아니면 레벨 개념이 딱히 없거나 무한이므로 level++ 생략 가능하지만,
-        // UI 갱신을 위해 올릴 수도 있음. 여기서는 스탯은 무제한이므로 level 변수 활용 안 함.
+        // 만렙 체크 (데이터 길이보다 레벨이 커지면 버튼 비활성화용)
+        if (level >= data.damages.Length)
+        {
+            GetComponent<UnityEngine.UI.Button>().interactable = false;
+        }
 
         GetComponentInParent<LevelUp>().Hide();
     }
