@@ -114,6 +114,7 @@ public class Playermove : MonoBehaviour
             isDead = true;
             Debug.Log("사망!");
             // 여기에 게임오버 UI 호출 추가
+            GameManager.instance.GameOver();
         }
     }
 

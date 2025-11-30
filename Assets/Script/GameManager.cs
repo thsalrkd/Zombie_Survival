@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI 관련 설정")]
     public bool isLive;
+    public Result uiResult;
 
     void Awake()
     {
@@ -41,6 +42,45 @@ public class GameManager : MonoBehaviour
     {
         GameObject p = GameObject.FindWithTag("Player");
         if (p != null) player = p.transform;
+    }
+
+    public void GameStart()
+    {  
+        Resume();
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(GameOverRoutine());
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        isLive=false; 
+        yield return new WaitForSeconds(0.5f);
+        uiResult.gameObject.SetActive(true);
+        uiResult.Over();
+        Stop();
+    }
+
+    public void GameClear()
+    {
+        Debug.Log("게임 클리어! 축하합니다!");
+        StartCoroutine(GameClearRoutine());
+    }
+
+    IEnumerator GameClearRoutine()
+    {
+        isLive = false;
+        yield return new WaitForSeconds(0.5f);
+        uiResult.gameObject.SetActive(true);
+        uiResult.Clear();
+        Stop();
+    }
+
+    public void GameRetry()
+    {
+        SceneManager.LoadScene("Character 1");
     }
 
     void Update()
@@ -125,6 +165,7 @@ public class GameManager : MonoBehaviour
             else if (currentStage == 6)
             {
                 // 6스테이지 보스를 잡으면 게임 클리어
+
                 GameClear();
             }
         }
@@ -146,12 +187,12 @@ public class GameManager : MonoBehaviour
         Instantiate(currentMobs[randIdx], spawnPos, Quaternion.identity);
     }
 
-    void GameClear()
+    /*void GameClear()
     {
         Debug.Log("게임 클리어! 축하합니다!");
         Time.timeScale = 0; // 게임 정지
         // 여기에 클리어 UI 띄우기
-    }
+    }*/
 
     public void Stop()
     {
