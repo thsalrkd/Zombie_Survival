@@ -34,15 +34,22 @@ public class SelectItem : MonoBehaviour
         switch (data.itemType)
         {
             case ItemList.ItemType.Basic:
+                if(level < data.damages.Length)
+                    textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level], data.counts[level]);
+                break;
             case ItemList.ItemType.Melee:
             case ItemList.ItemType.Rifle:
+                if (level < data.damages.Length)
+                    textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level]);
+                break;
             case ItemList.ItemType.Range:
                 if (level < data.damages.Length)
-                    textDesc.text = string.Format(data.itemDesc, data.damages[level], data.counts[level]);
+                    textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level]);
                 break;
             case ItemList.ItemType.Shoe:
             case ItemList.ItemType.Glove:
-                textDesc.text = data.itemDesc;
+                if (level < data.damages.Length)
+                    textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100 );
                 break;
         }
     }
@@ -90,12 +97,12 @@ public class SelectItem : MonoBehaviour
                     if (!w.gameObject.activeSelf)
                     {
                         w.gameObject.SetActive(true);
-                        w.LevelUp(data.damages[0], data.counts[0]);
+                        w.LevelUp(data.damages[0], data.cooltime[0]);
                     }
                     else
                     {
                         // 데미지 + 범위(counts) 증가 함수 호출
-                        w.LevelUp(data.damages[level], data.counts[level]);
+                        w.LevelUp(data.damages[level], data.cooltime[level]);
                     }
                 }
                 level++;
@@ -105,19 +112,24 @@ public class SelectItem : MonoBehaviour
                 // 이동속도 0.5 증가
                 player.moveSpeed += 0.5f;
                 Debug.Log("이동속도 증가! 현재: " + player.moveSpeed);
+                level++;
                 break;
 
             case ItemList.ItemType.Glove:
                 // 모든 무기 쿨타임 0.3초 감소
                 player.ReduceCooldownAllWeapons(0.3f);
                 Debug.Log("공격속도 증가!");
+                level++;
                 break;
         }
 
         // 만렙 체크 (데이터 길이보다 레벨이 커지면 버튼 비활성화용)
-        if (level >= data.damages.Length)
+        if (data.itemType != ItemList.ItemType.Shoe && data.itemType != ItemList.ItemType.Glove)
         {
-            GetComponent<UnityEngine.UI.Button>().interactable = false;
+            if (level >= data.damages.Length)
+            {
+                GetComponent<UnityEngine.UI.Button>().interactable = false;
+            }
         }
 
         GetComponentInParent<LevelUp>().Hide();
