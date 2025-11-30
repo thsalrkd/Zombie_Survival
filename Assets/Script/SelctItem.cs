@@ -60,6 +60,18 @@ public class SelectItem : MonoBehaviour
 
         switch (data.itemType)
         {
+            // ★ 1. 권총 (Basic) 추가됨
+            case ItemList.ItemType.Basic:
+                WeaponGun gun = player.GetComponentInChildren<WeaponGun>(true);
+                if (gun != null)
+                {
+                    // 권총은 처음부터 가지고 있으므로 active 체크 없이 바로 강화
+                    gun.LevelUp(data.damages[level], data.cooltime[level]);
+                }
+                level++; // 레벨 증가
+                break;
+
+            // ★ 2. 기존 무기들 (방망이, 저격총, 태양빛)
             case ItemList.ItemType.Melee:
             case ItemList.ItemType.Rifle:
             case ItemList.ItemType.Range:
@@ -70,10 +82,10 @@ public class SelectItem : MonoBehaviour
                     if (!w.gameObject.activeSelf)
                     {
                         w.gameObject.SetActive(true);
+                        w.LevelUp(data.damages[0], data.cooltime[0]);
                     }
                     else
                     {
-                        // 단순히 damage만 더하는 게 아니라, 쿨타임도 줄여주는 LevelUp 함수 호출
                         w.LevelUp(data.damages[level], data.cooltime[level]);
                     }
                 }
@@ -87,7 +99,6 @@ public class SelectItem : MonoBehaviour
                     }
                     else
                     {
-                        // 데미지 + 쿨타임 감소 함수 호출
                         w.LevelUp(data.damages[level], data.cooltime[level]);
                     }
                 }
@@ -97,33 +108,33 @@ public class SelectItem : MonoBehaviour
                     if (!w.gameObject.activeSelf)
                     {
                         w.gameObject.SetActive(true);
-                        w.LevelUp(data.damages[0], data.cooltime[0]);
+                        w.LevelUp(data.damages[0], data.counts[0]);
                     }
                     else
                     {
-                        // 데미지 + 범위(counts) 증가 함수 호출
-                        w.LevelUp(data.damages[level], data.cooltime[level]);
+                        w.LevelUp(data.damages[level], data.counts[level]);
                     }
                 }
-                level++;
+                level++; // 무기 공통 레벨 증가
                 break;
 
+            // ★ 3. 스탯 아이템 (신발, 장갑)
             case ItemList.ItemType.Shoe:
-                // 이동속도 0.5 증가
                 player.moveSpeed += 0.5f;
                 Debug.Log("이동속도 증가! 현재: " + player.moveSpeed);
+                // 스탯은 무제한이라 level 변수를 안 쓸 수도 있지만, 데이터 관리를 위해 올림
                 level++;
                 break;
 
             case ItemList.ItemType.Glove:
-                // 모든 무기 쿨타임 0.3초 감소
                 player.ReduceCooldownAllWeapons(0.3f);
                 Debug.Log("공격속도 증가!");
                 level++;
                 break;
         }
 
-        // 만렙 체크 (데이터 길이보다 레벨이 커지면 버튼 비활성화용)
+        // ★ 4. 만렙 체크 (버튼 비활성화)
+        // 스탯 아이템(Shoe, Glove)은 무제한 강화이므로 체크 제외
         if (data.itemType != ItemList.ItemType.Shoe && data.itemType != ItemList.ItemType.Glove)
         {
             if (level >= data.damages.Length)
@@ -132,6 +143,7 @@ public class SelectItem : MonoBehaviour
             }
         }
 
+        // 창 닫기
         GetComponentInParent<LevelUp>().Hide();
     }
 }

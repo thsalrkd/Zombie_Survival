@@ -75,5 +75,7 @@ public class WeaponGun : MonoBehaviour
         this.damage += (int)damageRate;
         this.coolTime -= coolTimeRate;
         if (this.coolTime < 0.1f) this.coolTime = 0.1f;
+
+        Debug.Log("±ÇÃÑ °­È­! µ¥¹ÌÁö: " + damage + ", ÄðÅ¸ÀÓ: " + coolTime);
     }
 }

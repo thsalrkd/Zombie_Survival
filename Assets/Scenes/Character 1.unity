@@ -3391,7 +3391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &992845724
 Transform:
   m_ObjectHideFlags: 0
@@ -13600,7 +13600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1580916436
 Transform:
   m_ObjectHideFlags: 0
@@ -13717,7 +13717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   tickRate: 0.5
-  range: 3
+  currentRange: 0
 --- !u!1 &1625153469
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,24 +5,21 @@ using UnityEngine;
 public class WeaponSunlight : MonoBehaviour
 {
     [Header("태양빛 스펙")]
-    public int damage = 2;         // 기본 공격력 2
-    public float tickRate = 0.5f;  // 데미지 주기 (0.5초마다 타격) - 고정값
-    public float range = 3.0f;     // 기본 범위 (반지름 3)
+    public int damage = 2;
+    public float tickRate = 0.5f;
+
+    [Header("현재 적용된 공격 범위 (자동 계산)")]
+    [SerializeField] float currentRange;
 
     float timer = 0f;
-
-    void Start()
-    {
-        // 게임 시작 시 현재 설정된 범위(3.0)에 맞춰 크기 조절
-        UpdateSize();
-    }
 
     void Update()
     {
         if (!GameManager.instance.isLive)
             return;
 
-        // 쿨타임(재장전) 개념이 아니라, '지속 피해 주기' 타이머가 돕니다.
+        currentRange = transform.localScale.x / 4f;
+
         timer += Time.deltaTime;
 
         if (timer >= tickRate)
@@ -34,8 +31,8 @@ public class WeaponSunlight : MonoBehaviour
 
     void DealDamageToArea()
     {
-        // 내 위치 주변 range 반경 내의 적 감지
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, range);
+        // ★ 계산된 currentRange를 사용해 공격
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, currentRange);
 
         foreach (Collider2D hit in hits)
         {
@@ -50,31 +47,22 @@ public class WeaponSunlight : MonoBehaviour
         }
     }
 
-    // ★ 레벨업 함수 (데미지 +1, 범위 +0.5)
-    // 쿨타임 데이터는 받아오지만 쓰지 않습니다 (X)
     public void LevelUp(float damageRate, float rangeRate)
     {
-        this.damage += (int)damageRate; // 데미지 1 증가
-        this.range += rangeRate;        // 범위 0.5 증가
+        this.damage += (int)damageRate;
 
-        // 범위가 늘어났으니 눈에 보이는 크기도 키워줌.
-        UpdateSize();
+        // ★ 레벨업 시: "범위(반지름)"가 늘어나야 하므로
+        // 실제 크기(Scale, 지름)는 [증가량 x 2] 만큼 커져야 합니다.
+        transform.localScale += Vector3.one * (rangeRate * 2f);
 
-        Debug.Log("태양빛 강화! 데미지: " + this.damage + ", 범위: " + this.range);
+        Debug.Log("햇빛 강화! 데미지: " + this.damage + ", 현재 범위(반지름): " + currentRange);
     }
 
-    // 범위(Range)에 맞춰서 오브젝트 크기를 조절하는 함수
-    void UpdateSize()
+    // Scene 창에서 빨간 원 확인용
+    private void OnDrawGizmos()
     {
-        // Range는 '반지름'이므로, Scale(지름)은 2배가 되어야 함.
-        // 원본 스프라이트가 1x1 크기라고 가정할 때 공식입니다.
-        transform.localScale = Vector3.one * range * 2;
-    }
-
-    // 에디터에서 범위 확인용 (노란 원)
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.color = Color.red;
+        // Gizmos도 현재 스케일 기준으로 그립니다.
+        Gizmos.DrawWireSphere(transform.position, transform.localScale.x / 4f);
     }
 }
