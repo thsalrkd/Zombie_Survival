@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,9 +7,6 @@ public class SelectItem : MonoBehaviour
 {
     public ItemList data;
     public int level;
-    public WeaponBat weaponbat;
-    public WeaponSniper weaponspiner;
-    public WeaponSunlight weaponsunlight;
 
     Image icon;
     Text textLevel;
@@ -19,7 +15,8 @@ public class SelectItem : MonoBehaviour
 
     void Awake()
     {
-        icon = GetComponentsInChildren<Image>()[1];
+        Image[] images = GetComponentsInChildren<Image>();
+        icon = images[1];
         icon.sprite = data.itemIcon;
 
         Text[] texts = GetComponentsInChildren<Text>();
@@ -33,95 +30,71 @@ public class SelectItem : MonoBehaviour
     {
         textLevel.text = "Lv." + (level + 1);
 
+        // 설명 텍스트 포맷팅
         switch (data.itemType)
         {
             case ItemList.ItemType.Basic:
-                textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level] * 100, data.counts[level]); ;
-                break;
             case ItemList.ItemType.Melee:
             case ItemList.ItemType.Rifle:
             case ItemList.ItemType.Range:
-                textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level] * 100);
+                if (level < data.damages.Length)
+                    textDesc.text = string.Format(data.itemDesc, data.damages[level], data.counts[level]);
                 break;
-            case ItemList.ItemType.Glove:
             case ItemList.ItemType.Shoe:
-                textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100); ;
+            case ItemList.ItemType.Glove:
+                textDesc.text = data.itemDesc;
                 break;
         }
     }
 
-    // SelectItem.cs 안의 OnClick 함수 부분
-
     public void OnClick()
     {
-        // GameManager를 통해 플레이어 가져오기
         Playermove player = GameManager.instance.Player;
 
         switch (data.itemType)
         {
-            case ItemList.ItemType.Melee: // 야구방망이
-                // ★ 중요: (true)를 넣어야 비활성화된(꺼진) 오브젝트도 찾을 수 있습니다!
-                WeaponBat bat = player.GetComponentInChildren<WeaponBat>(true);
-
-                if (bat != null)
+            case ItemList.ItemType.Melee:
+            case ItemList.ItemType.Rifle:
+            case ItemList.ItemType.Range:
+                // 기존 무기 로직
+                if (data.itemType == ItemList.ItemType.Melee)
                 {
-                    // 1. 꺼져있다면? -> 켜준다 (해금)
-                    if (!bat.gameObject.activeSelf)
-                    {
-                        bat.gameObject.SetActive(true);
-                        // 처음 켰을 때 기본 데미지 설정 (데이터의 0번 인덱스 사용)
-                        bat.LevelUp(data.damages[0], data.cooltime[0]);
-                    }
-                    else // 2. 켜져있다면? -> 강화한다 (LevelUp)
-                    {
-                        // 현재 레벨에 맞는 수치만큼 강화
-                        bat.LevelUp(data.damages[level], data.cooltime[level]);
-                    }
+                    WeaponBat w = player.GetComponentInChildren<WeaponBat>(true);
+                    if (!w.gameObject.activeSelf) w.gameObject.SetActive(true);
+                    else w.damage += (int)data.damages[level];
                 }
+                else if (data.itemType == ItemList.ItemType.Rifle)
+                {
+                    WeaponSniper w = player.GetComponentInChildren<WeaponSniper>(true);
+                    if (!w.gameObject.activeSelf) w.gameObject.SetActive(true);
+                    else w.damage += (int)data.damages[level];
+                }
+                else if (data.itemType == ItemList.ItemType.Range)
+                {
+                    WeaponSunlight w = player.GetComponentInChildren<WeaponSunlight>(true);
+                    if (!w.gameObject.activeSelf) w.gameObject.SetActive(true);
+                    else w.damage += (int)data.damages[level];
+                }
+                level++;
                 break;
 
-            case ItemList.ItemType.Rifle: // 저격총
-                WeaponSniper sniper = player.GetComponentInChildren<WeaponSniper>(true);
-                if (sniper != null)
-                {
-                    if (!sniper.gameObject.activeSelf)
-                    {
-                        sniper.gameObject.SetActive(true); // 해금
-                        sniper.LevelUp(data.damages[0], data.cooltime[0]);
-                    }
-                    else
-                    {
-                        sniper.LevelUp(data.damages[level], data.cooltime[level]); // 강화
-                    }
-                }
+            // ★ 추가됨: 스탯 아이템 로직
+            case ItemList.ItemType.Shoe:
+                // 이동속도 0.5 증가 (무제한 강화)
+                player.moveSpeed += 0.5f;
+                Debug.Log("이동속도 증가! 현재: " + player.moveSpeed);
                 break;
 
-            case ItemList.ItemType.Range: // 태양빛
-                WeaponSunlight sun = player.GetComponentInChildren<WeaponSunlight>(true);
-                if (sun != null)
-                {
-                    if (!sun.gameObject.activeSelf)
-                    {
-                        sun.gameObject.SetActive(true); // 해금
-                        sun.LevelUp(data.damages[0], data.counts[0]);
-                    }
-                    else
-                    {
-                        sun.LevelUp(data.damages[level], data.counts[level]); // 강화
-                    }
-                }
+            case ItemList.ItemType.Glove:
+                // 모든 무기 쿨타임 0.3초 감소 (무제한 강화)
+                player.ReduceCooldownAllWeapons(0.3f);
+                Debug.Log("공격속도 증가!");
                 break;
         }
 
-        level++; // 아이템 카드 레벨 증가
+        // 무기가 아니면 레벨 개념이 딱히 없거나 무한이므로 level++ 생략 가능하지만,
+        // UI 갱신을 위해 올릴 수도 있음. 여기서는 스탯은 무제한이므로 level 변수 활용 안 함.
 
-        // 만렙 도달 시 버튼 비활성화 (선택 사항)
-        if (level >= data.damages.Length)
-        {
-            GetComponent<Button>().interactable = false;
-        }
-
-        // 창 닫기
         GetComponentInParent<LevelUp>().Hide();
     }
 }

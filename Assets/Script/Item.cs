@@ -54,16 +54,17 @@ public class Item : MonoBehaviour
     // 맵상의 모든 적을 찾아 죽이는 함수
     void KillAllEnemies()
     {
-        // "Enemy" 태그를 가진 모든 오브젝트를 배열로 가져옴
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemyObj in enemies)
         {
             Enemy enemyScript = enemyObj.GetComponent<Enemy>();
             if (enemyScript != null)
             {
-                // 적 스크립트의 TakeDamage 함수를 호출하여 9999 데미지를 줌
-                // SendMessage를 사용해 Enemy 스크립트 내부 함수 호출
-                enemyScript.SendMessage("TakeDamage", 9999);
+                //보스면 죽이지 않고 넘어감
+                if (enemyScript.type == Enemy.EnemyType.Boss)
+                    continue;
+
+                enemyScript.TakeDamage(9999);
             }
         }
     }

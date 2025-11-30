@@ -124,12 +124,29 @@ public class Enemy : MonoBehaviour
     void DropItem()
     {
         // 안전장치
-        if (dropItems.Length < 3) return;
+        if (dropItems == null || dropItems.Length == 0) return;
 
-        int rand = UnityEngine.Random.Range(0, 100);
+        // 확률 로직 (0~99 난수 생성)
+        int ran = UnityEngine.Random.Range(0, 100);
+        int itemIndex = -1;
 
-        if (rand < 10) Instantiate(dropItems[0], transform.position, Quaternion.identity);
-        else if (rand < 30) Instantiate(dropItems[1], transform.position, Quaternion.identity);
-        else Instantiate(dropItems[2], transform.position, Quaternion.identity);
+        if (ran < 10) // 0~9 (10%)
+        {
+            itemIndex = 0; // 회복
+        }
+        else if (ran < 30) // 10~29 (20%) : 10% + 20%
+        {
+            itemIndex = 1; // 전멸
+        }
+        else // 30~99 (70%)
+        {
+            itemIndex = 2; // 쿨초기화
+        }
+
+        // 선택된 아이템 생성
+        if (itemIndex < dropItems.Length)
+        {
+            Instantiate(dropItems[itemIndex], transform.position, Quaternion.identity);
+        }
     }
 }

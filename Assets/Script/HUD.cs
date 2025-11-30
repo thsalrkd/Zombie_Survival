@@ -42,7 +42,8 @@ public class HUD : MonoBehaviour
                 myText.text = string.Format("{0:00}:{1:00}", min, sec);
                 break;
             case InfoType.Score:
-                int score = GameManager.instance.Player.currentExp;
+                //currentExp->killCount
+                int score = GameManager.instance.Player.killCount;
                 myText.text = string.Format("Score: {0:F0}", score);
                 break;
             case InfoType.Level:
