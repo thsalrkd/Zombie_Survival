@@ -111,10 +111,6 @@ public class SelectItem : MonoBehaviour
                     }
                 }
                 break;
-
-            case ItemList.ItemType.Heal: // 회복 (이건 강화 개념이 없으므로 바로 적용)
-                player.ChangeHP((int)data.baseDamage);
-                break;
         }
 
         level++; // 아이템 카드 레벨 증가
