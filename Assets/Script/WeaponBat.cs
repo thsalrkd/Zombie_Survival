@@ -8,12 +8,16 @@ public class WeaponBat : MonoBehaviour
     public int damage = 5;       // 공격력
     public float coolTime = 3.0f; // 공격 속도 (쿨타임)
 
+    [Header("크기 설정")]
+    // 이 숫자를 조절하면 방망이 크기가 바뀝니다 (기본 6배)
+    public float scaleMultiplier = 3.0f;
+
     [Header("프리팹 및 설정")]
     public GameObject swingEffectPrefab; // 이펙트 프리팹 연결
     public float spawnOffset = 0.5f;     // 캐릭터 중심에서 얼마나 떨어진 곳에 생성할지
 
     // 내부 변수
-    float currentTime = 0.0f;
+    public float currentTime = 0.0f;
     Transform playerTransform;
 
     void Start()
@@ -49,7 +53,7 @@ public class WeaponBat : MonoBehaviour
         GameObject effect = Instantiate(swingEffectPrefab, spawnPos, Quaternion.identity);
 
         // 4. 이펙트 좌우 반전 (Scale X 뒤집기)
-        Vector3 newScale = effect.transform.localScale;
+        Vector3 newScale = effect.transform.localScale * scaleMultiplier;
         newScale.x = Mathf.Abs(newScale.x) * facingDirection;
         effect.transform.localScale = newScale;
 

@@ -6,13 +6,13 @@ public class WeaponGun : MonoBehaviour
 {
     [Header("±ÇÃÑ ½ºÆå")]
     public int damage = 4;
-    public float coolTime = 0.5f;
+    public float coolTime = 2f;
     public float bulletSpeed = 15f;
 
     [Header("ÇÁ¸®ÆÕ ¿¬°á")]
     public GameObject bulletPrefab;
 
-    float currentTime = 0.0f;
+    public float currentTime = 0.0f;
     Transform playerTransform;
 
     void Start()

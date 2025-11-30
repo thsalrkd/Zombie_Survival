@@ -19,7 +19,7 @@ public class Playermove : MonoBehaviour
     [Header("레벨 시스템")]
     public int level = 1;
     public int currentExp = 0;
-    public int[] expTable = { 10, 20, 40, 70, 110, 160, 220, 290, 370 };
+    public int[] expTable = { 5, 5, 10, 20, 30, 40, 50, 60, 70 };
 
     Rigidbody2D rb;
     public Vector2 movement;

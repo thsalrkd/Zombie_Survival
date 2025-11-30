@@ -34,8 +34,7 @@ public class Item : MonoBehaviour
         {
             case 0: // 회복 아이템
                 Debug.Log("아이템 획득: 체력 회복");
-                // 기획서상 20% 회복이지만, 현재 MAX HP 10이므로 2 회복으로 구현
-                player.ChangeHP(2);
+                player.ChangeHP(20);
                 break;
 
             case 1: // 전멸 아이템 (화면 내 모든 적 제거)
@@ -72,20 +71,32 @@ public class Item : MonoBehaviour
     // 무기 쿨타임 초기화 함수
     void ResetAllCooldowns(Playermove player)
     {
-        // 플레이어 오브젝트의 자식(Child)에 있는 무기 스크립트들을 찾음
+        // 1. 권총 (WeaponGun) 찾기 및 쿨타임 초기화
+        // 권총은 기본 무기라 보통 항상 있지만, 안전하게 null 체크
+        WeaponGun gun = player.GetComponentInChildren<WeaponGun>();
+        if (gun != null)
+        {
+            // 현재 시간을 쿨타임보다 크게 설정하여 즉시 발사되게 함
+            gun.currentTime = gun.coolTime + 0.1f;
+            Debug.Log("권총 쿨타임 초기화 완료");
+        }
 
-        // 저격총 찾기
+        // 2. 저격총 (WeaponSniper) 찾기
         WeaponSniper sniper = player.GetComponentInChildren<WeaponSniper>();
         if (sniper != null)
         {
-            // 저격총 스크립트를 재시작하거나 내부 변수를 초기화해야 함
+            // 저격총 쿨타임 변수를 강제로 쿨타임 시간으로 채움
+            sniper.currentTime = sniper.coolTime + 0.1f;
+            Debug.Log("저격총 쿨타임 초기화 완료");
         }
 
-        // 야구방망이 찾기
+        // 3. 야구방망이 (WeaponBat) 찾기
         WeaponBat bat = player.GetComponentInChildren<WeaponBat>();
         if (bat != null)
         {
-            // bat.currentTime = 100f; 
+            // 방망이도 동일하게 처리
+            bat.currentTime = bat.coolTime + 0.1f;
+            Debug.Log("방망이 쿨타임 초기화 완료");
         }
     }
 }

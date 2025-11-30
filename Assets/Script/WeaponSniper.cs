@@ -13,7 +13,7 @@ public class WeaponSniper : MonoBehaviour
     public GameObject bulletPrefab; // 총알 프리팹 
 
     // 내부 변수
-    float currentTime = 0.0f;     // 쿨타임 계산용
+    public float currentTime = 0.0f;     // 쿨타임 계산용
     Transform playerTransform;    // 플레이어 위치
 
     void Start()

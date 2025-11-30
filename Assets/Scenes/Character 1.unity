@@ -2589,8 +2589,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4827bcfec6423846aab6f29c990cb7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 8
-  coolTime: 1.5
+  damage: 5
+  coolTime: 3
+  scaleMultiplier: 3
   swingEffectPrefab: {fileID: 8802170020575785831, guid: 67a342c5082c6d14aa9820a7f371ae96, type: 3}
   spawnOffset: 0.5
 --- !u!1 &792472878
@@ -3391,7 +3392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &992845724
 Transform:
   m_ObjectHideFlags: 0
@@ -3420,7 +3421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 4
-  coolTime: 0.5
+  coolTime: 2
   bulletSpeed: 15
   bulletPrefab: {fileID: 3602249667650922769, guid: 785b44cbcc5100445bfc338df1bf68aa, type: 3}
 --- !u!212 &992845726
@@ -8241,8 +8242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b98cde989a0534ebc0d1a33888f255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  coolTime: 4
+  damage: 7
+  coolTime: 5
   bulletSpeed: 20
   bulletPrefab: {fileID: 517250379393664549, guid: c09b49d141302ff4490ae97bba4f6628, type: 3}
 --- !u!1 &1293814647
@@ -8399,7 +8400,7 @@ MonoBehaviour:
   invincibleTime: 1
   level: 1
   currentExp: 0
-  expTable: 0a0000001400000028000000460000006e000000a0000000dc0000002201000072010000
+  expTable: 05000000050000000a000000140000001e00000028000000320000003c00000046000000
   movement: {x: 0, y: 0}
   isDead: 0
   uiLevelUp: {fileID: 479516998}
@@ -8572,8 +8573,8 @@ MonoBehaviour:
   stageTimer: 0
   stageDuration: 60
   isBossStage: 0
-  boss1Prefab: {fileID: 0}
-  boss2Prefab: {fileID: 0}
+  boss1Prefab: {fileID: 4390838308604386593, guid: d31fb7e0819a9d04c9dc32623699b1d1, type: 3}
+  boss2Prefab: {fileID: 4390838308604386593, guid: 0b8de5fbfba171247a9f5afd259a2955, type: 3}
   player: {fileID: 1373016905}
   isLive: 0
   uiResult: {fileID: 407380719}
@@ -13600,7 +13601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1580916436
 Transform:
   m_ObjectHideFlags: 0
