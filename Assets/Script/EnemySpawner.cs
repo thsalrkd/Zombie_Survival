@@ -55,14 +55,23 @@ public class EnemySpawner : MonoBehaviour
         Vector2 randomPoint = Random.insideUnitCircle.normalized * spawnRadius;
         Vector3 spawnPos = player.position + new Vector3(randomPoint.x, randomPoint.y, 0);
 
+        int baseIndex = 0;    // 잡몹 인덱스
+        int specialIndex = 1; // 특수몹 인덱스
+
+        if (GameManager.instance.currentStage >= 4)
+        {
+            baseIndex = 2;    // 도시 잡몹
+            specialIndex = 3; // 도시 특수몹
+        }
+
         // 2. 어떤 적을 소환할지 결정
         // 기본은 0번(일반 좀비), 가끔 1번(특수 좀비)
-        GameObject enemyToSpawn = enemyPrefabs[0];
+        GameObject enemyToSpawn = enemyPrefabs[baseIndex];
 
-        // 프리팹이 2개 이상 등록되어 있고, 20% 확률로 특수몹 소환
-        if (enemyPrefabs.Length > 1 && Random.Range(0, 100) < 20)
+        //3%확률로 특수 좀비
+        if (Random.Range(0, 100) < 3)
         {
-            enemyToSpawn = enemyPrefabs[1];
+            enemyToSpawn = enemyPrefabs[specialIndex];
         }
 
         // 3. 적 생성

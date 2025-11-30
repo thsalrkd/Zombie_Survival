@@ -50,7 +50,15 @@ public class Playermove : MonoBehaviour
         movement = new Vector2(x, y).normalized;
 
         if (x != 0)
-            spriteRenderer.flipX = x < 0;
+        {
+            // 오브젝트의 크기(Scale)를 가져옵니다.
+            Vector3 scale = transform.localScale;
+            // 왼쪽으로 갈 때(x < 0)는 Scale X를 음수로, 오른쪽일 때는 양수로 설정합니다.
+            // 원래 크기(Mathf.Abs)를 유지한 채 방향만 바꿉니다.
+            scale.x = Mathf.Abs(scale.x) * (x < 0 ? -1 : 1);
+            // 변경된 Scale을 적용하여 오브젝트 전체를 뒤집습니다.
+            transform.localScale = scale;
+        }
 
         if (animator.GetBool("isRun") != (movement != Vector2.zero))
         {
