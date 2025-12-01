@@ -15,7 +15,7 @@ MonoBehaviour:
   itemType: 0
   itemId: 0
   itemName: "\uAD8C\uCD1D"
-  itemDesc: "\uB370\uBBF8\uC9C0 {0}% \uC99D\uAC00\n\uCFE8\uD0C0\uC784 {1}\uCD08 \uAC10\uC18C\n\uD0D0\uC218
+  itemDesc: "\uB370\uBBF8\uC9C0 {0}% \uC99D\uAC00\n\uCFE8\uD0C0\uC784 {1}\uCD08 \uAC10\uC18C\n\uD0C4\uC218
     {2}\uAC1C \uC99D\uAC00"
   itemIcon: {fileID: -205726582, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 5

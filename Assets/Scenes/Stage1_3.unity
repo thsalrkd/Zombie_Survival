@@ -761,7 +761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -53.643944, y: 37.921204}
+  m_AnchoredPosition: {x: -73.7, y: 37.921204}
   m_SizeDelta: {x: 250, y: 6}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &305546432
@@ -1848,7 +1848,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 34.421204}
+  m_AnchoredPosition: {x: 0, y: 38.7}
   m_SizeDelta: {x: 107.2879, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &629977747
@@ -2017,7 +2017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -53.643944, y: 29.321203}
+  m_AnchoredPosition: {x: -73.7, y: 29.321205}
   m_SizeDelta: {x: 250, y: 6}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &659805020
@@ -2594,6 +2594,7 @@ MonoBehaviour:
   scaleMultiplier: 3
   swingEffectPrefab: {fileID: 8802170020575785831, guid: 67a342c5082c6d14aa9820a7f371ae96, type: 3}
   spawnOffset: 0.5
+  currentTime: 0
 --- !u!1 &792472878
 GameObject:
   m_ObjectHideFlags: 0
@@ -3424,6 +3425,7 @@ MonoBehaviour:
   coolTime: 2
   bulletSpeed: 15
   bulletPrefab: {fileID: 3602249667650922769, guid: 785b44cbcc5100445bfc338df1bf68aa, type: 3}
+  currentTime: 0
 --- !u!212 &992845726
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8246,6 +8248,7 @@ MonoBehaviour:
   coolTime: 5
   bulletSpeed: 20
   bulletPrefab: {fileID: 517250379393664549, guid: c09b49d141302ff4490ae97bba4f6628, type: 3}
+  currentTime: 0
 --- !u!1 &1293814647
 GameObject:
   m_ObjectHideFlags: 0
@@ -8281,7 +8284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -49.643944, y: 19.921204}
+  m_AnchoredPosition: {x: -71.9, y: 19.921204}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1293814649
@@ -8400,7 +8403,7 @@ MonoBehaviour:
   invincibleTime: 1
   level: 1
   currentExp: 0
-  expTable: 05000000050000000a000000140000001e00000028000000320000003c00000046000000
+  expTable: 010000000100000001000000140000001e00000028000000320000003c00000046000000
   movement: {x: 0, y: 0}
   isDead: 0
   uiLevelUp: {fileID: 479516998}
@@ -8571,7 +8574,7 @@ MonoBehaviour:
   Player: {fileID: 1373016901}
   currentStage: 1
   stageTimer: 0
-  stageDuration: 60
+  stageDuration: 10
   isBossStage: 0
   boss1Prefab: {fileID: 4390838308604386593, guid: d31fb7e0819a9d04c9dc32623699b1d1, type: 3}
   boss2Prefab: {fileID: 4390838308604386593, guid: 0b8de5fbfba171247a9f5afd259a2955, type: 3}
@@ -8703,7 +8706,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 49.64395, y: 44.821213}
+  m_AnchoredPosition: {x: 71.5, y: 44.821213}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1449034101
@@ -18389,7 +18392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -18.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1839194450
@@ -18427,7 +18430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 44.421204}
+  m_AnchoredPosition: {x: 0, y: 48.4}
   m_SizeDelta: {x: 107.2879, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1839194452
