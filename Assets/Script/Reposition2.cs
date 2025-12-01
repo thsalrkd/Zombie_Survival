@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class Reposition2 : MonoBehaviour
 {
+    //2D Collider가 트리거 영역에서 나갈 때 호출되는 메서드
     private void OnTriggerExit2D(Collider2D collision)
     {
+        //충돌한 오브젝트의 태그가 Area가 아닐 때
         if (!collision.CompareTag("Area"))
             return;
 
+        //플레이어 위치와 현재 오브젝트 위치 계산
         Vector3 PlayerPos = GameManager.instance.player.transform.position;
         Vector3 myPos = transform.position;
+
+        //플레이어와 현재 오브젝트의 x좌표 차이 절대값 계산
         float diffX = Mathf.Abs(PlayerPos.x - myPos.x);
 
+        //플레이어의 이동 방향
         Vector3 PlayerDir = GameManager.instance.Player.movement;
+
+        //이동 방향 x를 음수면 -1, 양수면 1로 변환
         float dirX = PlayerDir.x < 0 ? -1 : 1;
 
-        switch (transform.tag)
+        //오브젝트 태그가 Ground일 경우
+        if (transform.CompareTag("Ground"))
         {
-            case "Ground":
-                
-                transform.Translate(Vector3.right * dirX * 40);
-                
-                break;
-
-            case "Enemy":
-                break;
+            //x축 방향으로 40만큼 이동
+            //40은 맵 크기
+            transform.Translate(Vector3.right * dirX * 40);
         }
-
     }
 }

@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelUp : MonoBehaviour
 {
-    RectTransform rect;
-    SelectItem[] items;
+    RectTransform rect; //레벨업 UI의 RectTrasform 참조
+    SelectItem[] items; //자식으로 포함 된 레벨업 선택 아이템 배열
 
     void Awake()
     {
@@ -13,23 +12,28 @@ public class LevelUp : MonoBehaviour
         items = GetComponentsInChildren<SelectItem>(true);
     }
 
+    //레벨업 UI를 보여주는 메서드
     public void Show()
     {
-        Next();
-        rect.localScale = Vector3.one;
-        GameManager.instance.Stop();
-    }
-    public void Hide()
-    {
-        rect.localScale = Vector3.zero;
-        GameManager.instance.Resume();
+        Next();                        //Next() 메서드 호출하여 레벨업 아이템 후보 선정
+        rect.localScale = Vector3.one; //Scale을 (1,1)로 변경하여 UI 활성화
+        GameManager.instance.Stop();   //게임 일시 정지
     }
 
+    //레벨업 UI를 숨기는 메서드
+    public void Hide()
+    {
+        rect.localScale = Vector3.zero; //Scale을 (0,0)으로 변경하여 UI 비활성화
+        GameManager.instance.Resume();  //게임 재개
+    }
+
+    //선정된 아이템 클릭 이벤트 처리
     public void Select(int i)
     {
         items[i].OnClick();
     }
 
+    //레벨업 아이템 후보 설정하는 메서드
     void Next()
     {
         // 모든 아이템 비활성화
