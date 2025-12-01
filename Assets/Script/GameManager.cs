@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
 
     public Transform player;
 
+    [Header("맵 오브젝트")]
+    public GameObject Ground;
+    public GameObject CityMap;
+
     [Header("UI 관련 설정")]
     public bool isLive;
     public Result uiResult;
@@ -28,58 +32,13 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        //instance = this;
-
-        //게임 데이터 유지 
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // 씬 넘어가도 유지
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-        else
-        {
-            Destroy(gameObject); // 중복 방지
-        }
-    }
-
-    void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private Result FindInactiveResult()
-    {
-        Result[] results = Resources.FindObjectsOfTypeAll<Result>();
-        foreach (var r in results)
-        {
-            if (r.gameObject.scene.isLoaded)  // 현재 씬에 속해 있는지 확인
-                return r;
-        }
-        return null;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (uiResult == null)
-        {
-            uiResult = FindInactiveResult();
-
-            if (uiResult == null)
-                Debug.LogWarning("씬에서 Result 오브젝트를 찾을 수 없습니다.");
-        }
+        instance = this;
     }
 
     void Start()
     {
         GameObject p = GameObject.FindWithTag("Player");
-        if (p != null)
-        {
-            player = p.transform;   
-            DontDestroyOnLoad(player.gameObject);
-        }
-
-        enemySpawner = FindObjectOfType<EnemySpawner>();
+        if (p != null) player = p.transform;
     }
 
     public void GameStart()
@@ -96,19 +55,8 @@ public class GameManager : MonoBehaviour
     {
         isLive = false;
         yield return new WaitForSeconds(0.5f);
-        //uiResult.gameObject.SetActive(true);
-        // uiResult.Over();
-
-        if (uiResult != null)
-        {
-            uiResult.gameObject.SetActive(true);
-            uiResult.Over();
-        }
-        else
-        {
-            Debug.LogWarning("uiResult가 할당되지 않았거나 파괴되었습니다!");
-        }
-
+        uiResult.gameObject.SetActive(true);
+        uiResult.Over();
         Stop();
     }
 
@@ -122,27 +70,14 @@ public class GameManager : MonoBehaviour
     {
         isLive = false;
         yield return new WaitForSeconds(0.5f);
-        //uiResult.gameObject.SetActive(true);
-        //uiResult.Clear();
-
-        if (uiResult != null)
-        {
-            uiResult.gameObject.SetActive(true);
-            uiResult.Clear();
-        }
-        else
-        {
-            Debug.LogWarning("uiResult가 할당되지 않았거나 파괴되었습니다!");
-
-        }
-
+        uiResult.gameObject.SetActive(true);
+        uiResult.Clear();
         Stop();
     }
 
     public void GameRetry()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("Stage1_3");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void Update()
@@ -194,10 +129,26 @@ public class GameManager : MonoBehaviour
         }
 
         // 4스테이지 진입 시 (도시 맵 등) 처리
-        if (currentStage == 4)
+        if (currentStage >= 4)
         {
+            if(currentStage == 4)
+            {
+                if (player != null)
+                {
+                    player.position = Vector3.zero; // 플레이어 좌표 (0,0,0)으로 이동
+                }
+            }
             Debug.Log("2라운드 시작! 도시 맵 분위기!");
+            if (Ground != null) Ground.SetActive(false);
+            if (CityMap != null) CityMap.SetActive(true);
         }
+        else
+        {
+            // 4스테이지가 아닐 때 맵 상태 필요하면 조절 가능
+            if (Ground != null) Ground.SetActive(true);
+            if (CityMap != null) CityMap.SetActive(false);
+        }
+
     }
 
     void StartBossBattle(GameObject bossPrefab)
@@ -236,8 +187,7 @@ public class GameManager : MonoBehaviour
             {
                 // 3스테이지 보스 잡음 -> 4스테이지로 이동
                 NextStage();
-                SceneManager.LoadScene("Stage4_6"); //추가
-                SceneManager.sceneLoaded += OnSceneLoaded_MovePlayerToZero; //Player 좌표 0,0으로 이동
+                //필요시 좌표 0,0으로 이동 로직 추가
             }
             else if (currentStage == 6)
             {
@@ -245,23 +195,6 @@ public class GameManager : MonoBehaviour
                 GameClear();
             }
         }
-    }
-    void OnSceneLoaded_MovePlayerToZero(Scene scene, LoadSceneMode mode)
-    {
-        // 어떤 씬이든 플레이어 좌표 리셋
-        if (player != null)
-        {
-            player.position = Vector3.zero;
-
-            Playermove p = player.GetComponent<Playermove>();
-        if (p != null)
-        {
-            p.uiLevelUp = FindObjectOfType<LevelUp>();
-        }
-        }
-
-        // 이벤트 중복 실행 방지
-        SceneManager.sceneLoaded -= OnSceneLoaded_MovePlayerToZero;
     }
 
     public void Stop()

@@ -47,8 +47,9 @@ public class HUD : MonoBehaviour
                 myText.text = string.Format("Stage {0:F0}", curStage);
                 break;
             case InfoType.Time:
-                int min = Mathf.FloorToInt(Time.time/60);
-                int sec = Mathf.FloorToInt(Time.time % 60);
+                float time = GameManager.instance.stageTimer;
+                int min = Mathf.FloorToInt(time/60);
+                int sec = Mathf.FloorToInt(time % 60);
                 myText.text = string.Format("{0:00}:{1:00}", min, sec);
                 break;
             case InfoType.Score:
