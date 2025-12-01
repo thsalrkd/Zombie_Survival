@@ -60,7 +60,7 @@ public class SelectItem : MonoBehaviour
 
         switch (data.itemType)
         {
-            // ★ 1. 권총 (Basic) 추가됨
+            // 권총 추가
             case ItemList.ItemType.Basic:
                 WeaponGun gun = player.GetComponentInChildren<WeaponGun>(true);
                 if (gun != null)
@@ -71,7 +71,7 @@ public class SelectItem : MonoBehaviour
                 level++; // 레벨 증가
                 break;
 
-            // ★ 2. 기존 무기들 (방망이, 저격총, 태양빛)
+            // 기존 무기들 (삽, 저격총, 태양빛)
             case ItemList.ItemType.Melee:
             case ItemList.ItemType.Rifle:
             case ItemList.ItemType.Range:
@@ -118,7 +118,7 @@ public class SelectItem : MonoBehaviour
                 level++; // 무기 공통 레벨 증가
                 break;
 
-            // ★ 3. 스탯 아이템 (신발, 장갑)
+            // 스탯 아이템 (신발, 장갑)
             case ItemList.ItemType.Shoe:
                 player.moveSpeed += 0.5f;
                 Debug.Log("이동속도 증가! 현재: " + player.moveSpeed);
@@ -133,7 +133,7 @@ public class SelectItem : MonoBehaviour
                 break;
         }
 
-        // ★ 4. 만렙 체크 (버튼 비활성화)
+        // 만렙 체크 (버튼 비활성화)
         // 스탯 아이템(Shoe, Glove)은 무제한 강화이므로 체크 제외
         if (data.itemType != ItemList.ItemType.Shoe && data.itemType != ItemList.ItemType.Glove)
         {

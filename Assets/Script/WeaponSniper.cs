@@ -5,20 +5,19 @@ using UnityEngine;
 public class WeaponSniper : MonoBehaviour
 {
     [Header("저격총 스펙")]
-    public int damage = 7;        // 높은 데미지
+    public int damage = 7;         // 높은 데미지
     public float coolTime = 5.0f;  // 긴 쿨타임
     public float bulletSpeed = 20f;// 빠른 탄속
 
     [Header("프리팹 연결")]
     public GameObject bulletPrefab; // 총알 프리팹 
+    public float currentTime = 0.0f;// 쿨타임 계산용
 
     // 내부 변수
-    public float currentTime = 0.0f;     // 쿨타임 계산용
     Transform playerTransform;    // 플레이어 위치
 
     void Start()
     {
-        // 플레이어의 자식 오브젝트로 있다고 가정
         playerTransform = transform.parent;
     }
 

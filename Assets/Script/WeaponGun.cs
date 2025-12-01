@@ -11,8 +11,9 @@ public class WeaponGun : MonoBehaviour
 
     [Header("프리팹 연결")]
     public GameObject bulletPrefab;
-
     public float currentTime = 0.0f;
+
+    //내부 변수
     Transform playerTransform;
 
     void Start()

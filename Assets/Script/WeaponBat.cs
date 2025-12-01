@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class WeaponBat : MonoBehaviour
 {
-    [Header("야구방망이 스펙")]
+    [Header("삽 스펙")]
     public int damage = 5;       // 공격력
-    public float coolTime = 3.0f; // 공격 속도 (쿨타임)
+    public float coolTime = 3.0f; // 쿨타임
 
     [Header("크기 설정")]
-    // 이 숫자를 조절하면 방망이 크기가 바뀝니다 (기본 6배)
+    // 이 숫자를 조절하면 삽 크기가 바뀜
     public float scaleMultiplier = 3.0f;
 
     [Header("프리팹 및 설정")]
     public GameObject swingEffectPrefab; // 이펙트 프리팹 연결
     public float spawnOffset = 0.5f;     // 캐릭터 중심에서 얼마나 떨어진 곳에 생성할지
+    public float currentTime = 0.0f;
 
     // 내부 변수
-    public float currentTime = 0.0f;
     Transform playerTransform;
 
     void Start()
     {
-        // 내 부모(Player)를 찾아서 저장
+        // Player를 찾아서 저장
         playerTransform = transform.parent;
     }
 
@@ -43,21 +43,21 @@ public class WeaponBat : MonoBehaviour
 
     void Swing()
     {
-        // 1. 플레이어가 보는 방향 확인 (1: 오른쪽, -1: 왼쪽)
+        // 플레이어가 보는 방향 확인 (1: 오른쪽, -1: 왼쪽)
         float facingDirection = Mathf.Sign(playerTransform.localScale.x);
 
-        // 2. 생성 위치 계산 (보는 방향 쪽으로 약간 앞에서 생성)
+        // 생성 위치 계산 (보는 방향 쪽으로 약간 앞에서 생성)
         Vector3 spawnPos = playerTransform.position + new Vector3(facingDirection * spawnOffset, 0, 0);
 
-        // 3. 이펙트 생성
+        // 이펙트 생성
         GameObject effect = Instantiate(swingEffectPrefab, spawnPos, Quaternion.identity);
 
-        // 4. 이펙트 좌우 반전 (Scale X 뒤집기)
+        // 이펙트 좌우 반전 (Scale X 뒤집기)
         Vector3 newScale = effect.transform.localScale * scaleMultiplier;
         newScale.x = Mathf.Abs(newScale.x) * facingDirection;
         effect.transform.localScale = newScale;
 
-        // 5. 회전 움직임 초기화 (방향 전달)
+        // 회전 움직임 초기화 (방향 전달)
         // SwingMovement에게 "나 지금 오른쪽(1)이야" 혹은 "왼쪽(-1)이야"라고 알려줌.
         SwingMovement swingMove = effect.GetComponent<SwingMovement>();
         if (swingMove != null)
@@ -65,7 +65,7 @@ public class WeaponBat : MonoBehaviour
             swingMove.Init(facingDirection);
         }
 
-        // 6. 데미지 정보 전달
+        // 데미지 정보 전달
         Bullet b = effect.GetComponent<Bullet>();
         if (b != null)
         {
@@ -74,7 +74,7 @@ public class WeaponBat : MonoBehaviour
             b.Init(dir, damage, true, true);
         }
 
-        // 7. 0.3초 뒤 삭제 (애니메이션 끝나면 사라짐)
+        // 0.3초 뒤 삭제 (애니메이션 끝나면 사라짐)
         Destroy(effect, 0.3f);
     }
 

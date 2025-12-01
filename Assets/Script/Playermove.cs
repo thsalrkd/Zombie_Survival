@@ -157,27 +157,4 @@ public class Playermove : MonoBehaviour
         if (sniper != null) sniper.coolTime = Mathf.Max(1.0f, sniper.coolTime - amount);
 
     }
-
-    //GameRetry 시 데이터 초기화
-    /*public void ResetPlayerState()
-    {
-        currentHP = maxHP;
-        currentExp = 0;
-        level = 1;
-        killCount = 0;
-
-        isDead = false;
-        isInvincible = false;
-
-        // 레벨업 UI는 숨겨두기
-        if (uiLevelUp != null)
-            uiLevelUp.gameObject.SetActive(false);
-
-        // 애니메이션 초기화
-        Animator animator = GetComponent<Animator>();
-        if (animator != null)
-        {
-            animator.SetBool("isRun", false);
-        }
-    }*/
 }

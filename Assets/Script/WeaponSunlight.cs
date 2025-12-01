@@ -31,7 +31,7 @@ public class WeaponSunlight : MonoBehaviour
 
     void DealDamageToArea()
     {
-        // ★ 계산된 currentRange를 사용해 공격
+        // 계산된 currentRange를 사용해 공격
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, currentRange);
 
         foreach (Collider2D hit in hits)
@@ -51,8 +51,6 @@ public class WeaponSunlight : MonoBehaviour
     {
         this.damage += (int)damageRate;
 
-        // ★ 레벨업 시: "범위(반지름)"가 늘어나야 하므로
-        // 실제 크기(Scale, 지름)는 [증가량 x 2] 만큼 커져야 합니다.
         transform.localScale += Vector3.one * (rangeRate * 2f);
 
         Debug.Log("햇빛 강화! 데미지: " + this.damage + ", 현재 범위(반지름): " + currentRange);
@@ -62,7 +60,6 @@ public class WeaponSunlight : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        // Gizmos도 현재 스케일 기준으로 그립니다.
         Gizmos.DrawWireSphere(transform.position, transform.localScale.x / 4f);
     }
 }
