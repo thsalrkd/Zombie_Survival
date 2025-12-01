@@ -13272,7 +13272,7 @@ MonoBehaviour:
   Player: {fileID: 1373016901}
   currentStage: 1
   stageTimer: 0
-  stageDuration: 5
+  stageDuration: 60
   isBossStage: 0
   boss1Prefab: {fileID: 4390838308604386593, guid: d31fb7e0819a9d04c9dc32623699b1d1, type: 3}
   boss2Prefab: {fileID: 4390838308604386593, guid: 0b8de5fbfba171247a9f5afd259a2955, type: 3}
