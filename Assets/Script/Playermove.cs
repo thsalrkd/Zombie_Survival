@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Playermove : MonoBehaviour
 {
@@ -71,7 +72,16 @@ public class Playermove : MonoBehaviour
         if (!GameManager.instance.isLive || isDead)
             return;
 
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        //rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+        Vector2 nextPos = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
+
+        if (GameManager.instance.currentStage >= 4)
+        {
+            nextPos.y = Mathf.Clamp(nextPos.y, -6.0f, 5.5f);
+        }
+
+        rb.MovePosition(nextPos);
     }
 
     public void GetExp(int amount)
