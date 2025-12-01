@@ -20,7 +20,7 @@ public class Playermove : MonoBehaviour
     [Header("레벨 시스템")]
     public int level = 1;
     public int currentExp = 0;
-    public int[] expTable = { 5, 5, 10, 20, 30, 40, 50, 60, 70 };
+    public int[] expTable = { 5, 5, 10, 20, 30, 40, 50, 60, 70 }; //레벨업할때마다 현재경험치가 초기화되기때문에 '요구경험치테이블'
 
     Rigidbody2D rb;
     public Vector2 movement;
@@ -47,15 +47,13 @@ public class Playermove : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        // 스테이지 4 이상 Y축 이동 제한 로직은 추후 추가
         movement = new Vector2(x, y).normalized;
 
         if (x != 0)
         {
-            // 오브젝트의 크기(Scale)를 가져옵니다.
             Vector3 scale = transform.localScale;
-            // 왼쪽으로 갈 때(x < 0)는 Scale X를 음수로, 오른쪽일 때는 양수로 설정합니다.
-            // 원래 크기(Mathf.Abs)를 유지한 채 방향만 바꿉니다.
+            // 왼쪽으로 갈 때(x < 0)는 Scale X를 음수로, 오른쪽일 때는 양수로 설정
+            // 원래 크기를 유지한 채 방향만 바꿉니다.
             scale.x = Mathf.Abs(scale.x) * (x < 0 ? -1 : 1);
             // 변경된 Scale을 적용하여 오브젝트 전체를 뒤집습니다.
             transform.localScale = scale;

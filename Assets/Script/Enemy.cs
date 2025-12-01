@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
                 GameManager.instance.OnBossDead();
         }
 
-        //0.5초 뒤에 삭제 (애니메이션 재생 시간 확보)
+        //0.5초 뒤에 삭제 (애니메이션 재생 시간 확보)   
         Destroy(gameObject, 0.5f);
     }
 

@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("스폰 설정")]
-    public GameObject[] enemyPrefabs; // 적 프리팹들 (0:일반, 1:특수 등)
+    public GameObject[] enemyPrefabs; // 적 프리팹
+
     public float spawnInterval = 2.0f; // 적이 생성되는 간격 (초)
     public float spawnRadius = 10.0f;  // 플레이어로부터 떨어진 거리 (화면 밖)
 
@@ -18,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        // 플레이어 위치 찾기 (매 프레임 찾으면 무거우니까 시작할 때 한 번)
+        // 플레이어 위치 찾기
         GameObject p = GameObject.FindWithTag("Player");
         if (p != null) player = p.transform;
     }
@@ -39,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
             timer = 0f;
             SpawnEnemy();
 
-            // (선택사항) 시간이 지날수록 스폰 속도를 조금씩 빠르게
+            // 시간이 지날수록 스폰 속도를 조금씩 빠르게
             // 0.5초 밑으로는 안 떨어지게 제한
             if (spawnInterval > 0.5f)
             {
@@ -50,13 +51,12 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        // 1. 생성 위치 계산 (플레이어 주변 원형 테두리 어딘가)
-        // insideUnitCircle은 원 안의 랜덤 점, normalized하면 원의 테두리 점이 됨
+        // 생성 위치 계산 (플레이어 주변 원형 테두리 어딘가)
         Vector2 randomPoint = Random.insideUnitCircle.normalized * spawnRadius;
         Vector3 spawnPos = player.position + new Vector3(randomPoint.x, randomPoint.y, 0);
 
-        int baseIndex = 0;    // 잡몹 인덱스
-        int specialIndex = 1; // 특수몹 인덱스
+        int baseIndex = 0;    // 숲 잡몹
+        int specialIndex = 1; // 숲 특수몹
 
         if (GameManager.instance.currentStage >= 4)
         {
@@ -64,17 +64,17 @@ public class EnemySpawner : MonoBehaviour
             specialIndex = 3; // 도시 특수몹
         }
 
-        // 2. 어떤 적을 소환할지 결정
-        // 기본은 0번(일반 좀비), 가끔 1번(특수 좀비)
+        // 어떤 적을 소환할지 결정
+        // 기본은 0번(일반몹), 가끔 1번(특수몹)
         GameObject enemyToSpawn = enemyPrefabs[baseIndex];
 
-        //3%확률로 특수 좀비
+        //3%확률로 특수몹
         if (Random.Range(0, 100) < 3)
         {
             enemyToSpawn = enemyPrefabs[specialIndex];
         }
 
-        // 3. 적 생성
+        // 적 생성
         Instantiate(enemyToSpawn, spawnPos, Quaternion.identity);
     }
 
@@ -87,4 +87,4 @@ public class EnemySpawner : MonoBehaviour
             Gizmos.DrawWireSphere(player.position, spawnRadius);
         }
     }
-}
+} 

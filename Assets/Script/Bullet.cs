@@ -8,9 +8,8 @@ public class Bullet : MonoBehaviour
     public float speed = 10f;    // 날아가는 속도
     public int damage = 3;       // 데미지
     public bool isPenetrate = false; // 관통 여부 (true면 적을 뚫고 지나감)
-    public bool isMelee = false; // ★ 추가됨: 근접 무기 여부
+    public bool isMelee = false; // 근접 무기 여부
 
-    // ★ 수정됨: 매개변수에 'bool melee'가 추가되었습니다.
     public void Init(Vector2 dir, int dmg, bool penetrate, bool melee = false)
     {
         damage = dmg;
@@ -25,13 +24,12 @@ public class Bullet : MonoBehaviour
         // 5초 뒤에 자동 삭제 (메모리 관리)
         Destroy(gameObject, 5.0f);
     }
-
     void Update()
     {
         if (!GameManager.instance.isLive)
             return;
 
-        // ★ 추가됨: 근접 무기(방망이)가 아닐 때만 앞으로 날아감
+        // 근접 무기(방망이)가 아닐 때만 앞으로 날아감
         // 방망이는 휘두르는 모션 스크립트(SwingMovement)가 따로 움직여줌
         if (!isMelee)
         {
@@ -39,7 +37,6 @@ public class Bullet : MonoBehaviour
             transform.Translate(Vector3.right * speed * Time.deltaTime);
         }
     }
-
     // 화면 밖으로 나가면 삭제 (최적화)
     private void OnBecameInvisible()
     {

@@ -26,14 +26,13 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        // ★ 플레이어를 못 찾았으면 아무것도 하지 마라 (에러 방지)
+        // 플레이어를 못 찾았으면 아무것도 하지 마라 (에러 방지)
         if (playerTransform == null) return;
 
         Vector3 desiredPosition = playerTransform.position + offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-        // 카메라의 Z축은 보통 -10이어야 함. 
-        // offset에 이미 Z값 차이가 들어있으므로 그대로 적용하면 됨.
+        // offset에 이미 Z값 차이가 들어있으므로 그대로 적용
         transform.position = smoothedPosition;
     }
 }

@@ -32,23 +32,23 @@ public class LevelUp : MonoBehaviour
 
     void Next()
     {
-        // 1. 모든 아이템 비활성화
+        // 모든 아이템 비활성화
         foreach (SelectItem item in items)
         {
             item.gameObject.SetActive(false);
         }
 
-        // 2. 현재 활성화된 무기 개수 (Gun 포함)
+        // 현재 활성화된 무기 개수 (Gun 포함)
         int activeWeaponCount = GameManager.instance.Player.GetActiveWeaponCount();
 
-        // 3. 랜덤 후보 선정
+        // 랜덤 후보 선정
         List<int> validIndices = new List<int>();
 
         for (int i = 0; i < items.Length; i++)
         {
             ItemList data = items[i].data;
 
-            // ★ 중요: 무기 타입인지 확인 (Shoe, Glove는 false가 됨)
+            // 무기 타입인지 확인 (Shoe, Glove는 false가 됨)
             // Basic(Gun)은 어차피 이미 가지고 있어서 'Upgrade'로 빠지므로 여기 포함되어도 상관없음
             bool isWeapon = (data.itemType == ItemList.ItemType.Melee ||
                              data.itemType == ItemList.ItemType.Rifle ||
@@ -69,7 +69,7 @@ public class LevelUp : MonoBehaviour
             validIndices.Add(i);
         }
 
-        // 4. 랜덤 3개 활성화
+        // 랜덤 3개 활성화
         int[] ran = new int[3];
 
         if (validIndices.Count <= 3)
@@ -104,8 +104,8 @@ public class LevelUp : MonoBehaviour
                 return player.GetComponentInChildren<WeaponSniper>(true).gameObject.activeSelf;
             case ItemList.ItemType.Range: // Sunlight
                 return player.GetComponentInChildren<WeaponSunlight>(true).gameObject.activeSelf;
-            default: // Shoe, Glove 등은 스탯이라 "가지고 있다"는 개념(활성화)이 아님 (무조건 false 리턴해서 레벨업마다 뜨게 하거나 별도 로직)
-                // 현재 코드 구조상 스탯 아이템은 activeSelf 체크가 없으므로 false 리턴하여 계속 뜨게 함(만렙 전까지)
+            default: 
+                // Shoe, Glove 등은 스탯이라 무조건 false 리턴해서 레벨업마다 뜨게 함
                 return false;
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public enum InfoType { HP, Exp, Stage, Time, Score, Level}
+    public enum InfoType { HP, Exp, Stage, Time, Score, Level }
 
     public InfoType type;
 

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    // 아이템 종류 설정 (유니티 인스펙터에서 숫자 입력)
     // 0: 회복, 1: 전멸(화면 전체 킬), 2: 쿨초기화
     public int itemType;
 
@@ -22,7 +21,7 @@ public class Item : MonoBehaviour
                 ApplyEffect(player); // 아이템 효과 적용 함수 호출
             }
 
-            // 아이템 오브젝트 삭제 (먹었으니 사라짐)
+            // 아이템 오브젝트 삭제
             Destroy(gameObject);
         }
     }
@@ -37,7 +36,7 @@ public class Item : MonoBehaviour
                 player.ChangeHP(20);
                 break;
 
-            case 1: // 전멸 아이템 (화면 내 모든 적 제거)
+            case 1: // 전멸 아이템 (화면 내 모든 적 제거, 보스 제외)
                 Debug.Log("아이템 획득: 적 전멸");
                 KillAllEnemies();
                 break;
@@ -50,7 +49,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    // 맵상의 모든 적을 찾아 죽이는 함수
+    // 맵상의 모든 적을 찾아 죽이는 함수, 보스 제외
     void KillAllEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -71,7 +70,7 @@ public class Item : MonoBehaviour
     // 무기 쿨타임 초기화 함수
     void ResetAllCooldowns(Playermove player)
     {
-        // 1. 권총 (WeaponGun) 찾기 및 쿨타임 초기화
+        // 권총 (WeaponGun) 찾기 및 쿨타임 초기화
         // 권총은 기본 무기라 보통 항상 있지만, 안전하게 null 체크
         WeaponGun gun = player.GetComponentInChildren<WeaponGun>();
         if (gun != null)
@@ -81,20 +80,20 @@ public class Item : MonoBehaviour
             Debug.Log("권총 쿨타임 초기화 완료");
         }
 
-        // 2. 저격총 (WeaponSniper) 찾기
+        // 저격총 (WeaponSniper) 찾기
         WeaponSniper sniper = player.GetComponentInChildren<WeaponSniper>();
         if (sniper != null)
         {
-            // 저격총 쿨타임 변수를 강제로 쿨타임 시간으로 채움
+            //저격총도 동일하게 처리
             sniper.currentTime = sniper.coolTime + 0.1f;
             Debug.Log("저격총 쿨타임 초기화 완료");
         }
 
-        // 3. 야구방망이 (WeaponBat) 찾기
+        // 삽 (WeaponBat) 찾기
         WeaponBat bat = player.GetComponentInChildren<WeaponBat>();
         if (bat != null)
         {
-            // 방망이도 동일하게 처리
+            //삽도 동일하게 처리
             bat.currentTime = bat.coolTime + 0.1f;
             Debug.Log("방망이 쿨타임 초기화 완료");
         }

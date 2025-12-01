@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     public bool isBossStage = false;
 
     [Header("보스 프리팹 설정")]
-    public GameObject boss1Prefab;    // 3스테이지 종료 후 등장
-    public GameObject boss2Prefab;    // 6스테이지 종료 후 등장
+    public GameObject boss1Prefab;
+    public GameObject boss2Prefab;
 
     public Transform player;
 
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         {
             stageTimer += Time.deltaTime;
 
-            // ★ 1분이 지났을 때의 행동 결정
+            // 1분이 지났을 때의 행동 결정
             if (stageTimer >= stageDuration)
             {
                 CheckStageEnd();
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ★ 1분이 끝났을 때 무슨 일이 일어날지 결정하는 함수
+    // 1분이 끝났을 때 무슨 일이 일어날지 결정하는 함수
     void CheckStageEnd()
     {
         // 3스테이지가 끝났다면 -> 보스 1 소환
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("다음 스테이지 진입! 현재: " + currentStage);
         }
 
-        // 4스테이지 진입 시 (도시 맵 등) 처리
+        // 4스테이지 진입 시 처리
         if (currentStage >= 4)
         {
             if(currentStage == 4)
@@ -154,15 +154,15 @@ public class GameManager : MonoBehaviour
     void StartBossBattle(GameObject bossPrefab)
     {
         isBossStage = true; // 타이머 정지
-        stageTimer = 0f;    // 타이머 초기화 (보기 좋게)
+        stageTimer = 0f;    // 타이머 초기화
 
-        // ★ 보스전 시작! 잡몹 스폰 중지
+        // 보스전 시작! 잡몹 스폰 중지
         if (enemySpawner != null) enemySpawner.enabled = false;
 
-        // 보스 소환 (플레이어 주변)
+        // 보스 소환
         if (bossPrefab != null)
         {
-            Vector2 spawnPos = (Vector2)player.position + Random.insideUnitCircle.normalized * 5f; // 너무 멀지 않게 5f로 수정
+            Vector2 spawnPos = (Vector2)player.position + Random.insideUnitCircle.normalized * 5f;
             Instantiate(bossPrefab, spawnPos, Quaternion.identity);
             Debug.Log("보스 출현!");
         }
@@ -180,14 +180,13 @@ public class GameManager : MonoBehaviour
             isBossStage = false; // 보스전 끝
             Debug.Log("보스 처치 완료!");
 
-            // ★ 보스를 잡았으니 다시 잡몹 나오게 켬
+            // 보스를 잡았으니 다시 잡몹 나오게 켬
             if (enemySpawner != null) enemySpawner.enabled = true;
 
             if (currentStage == 3)
             {
                 // 3스테이지 보스 잡음 -> 4스테이지로 이동
                 NextStage();
-                //필요시 좌표 0,0으로 이동 로직 추가
             }
             else if (currentStage == 6)
             {
