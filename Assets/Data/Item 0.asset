@@ -19,7 +19,6 @@ MonoBehaviour:
   itemIcon: {fileID: -205726582, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 5
   baseCooltime: 3
-  baseCount: 1
   damages:
   - 0.2
   - 0.2
@@ -28,8 +27,4 @@ MonoBehaviour:
   - 0.5
   - 0.5
   - 0.5
-  counts:
-  - 1
-  - 1
-  - 1
   projectile: {fileID: 3602249667650922769, guid: 785b44cbcc5100445bfc338df1bf68aa, type: 3}

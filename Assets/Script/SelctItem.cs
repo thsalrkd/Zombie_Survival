@@ -33,21 +33,21 @@ public class SelectItem : MonoBehaviour
         // 설명 텍스트 포맷팅
         switch (data.itemType)
         {
-            case ItemList.ItemType.Basic:
+            case ItemList.ItemType.Basic: //기본 무기 (권총)
                 if(level < data.damages.Length)
-                    textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level], data.counts[level]);
+                    textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level]);
                 break;
-            case ItemList.ItemType.Melee:
-            case ItemList.ItemType.Rifle:
+            case ItemList.ItemType.Melee: //근거리 무기 (삽)
+            case ItemList.ItemType.Rifle: //원거리 무기 (저격총)
                 if (level < data.damages.Length)
                     textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level]);
                 break;
-            case ItemList.ItemType.Range:
+            case ItemList.ItemType.Range: //범위 공격 무기 (햇빛)
                 if (level < data.damages.Length)
                     textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100, data.cooltime[level]);
                 break;
-            case ItemList.ItemType.Shoe:
-            case ItemList.ItemType.Glove:
+            case ItemList.ItemType.Shoe: //운동화
+            case ItemList.ItemType.Glove: //장갑
                 if (level < data.damages.Length)
                     textDesc.text = string.Format(data.itemDesc, data.damages[level] * 100 );
                 break;
@@ -108,11 +108,11 @@ public class SelectItem : MonoBehaviour
                     if (!w.gameObject.activeSelf)
                     {
                         w.gameObject.SetActive(true);
-                        w.LevelUp(data.damages[0], data.counts[0]);
+                        w.LevelUp(data.damages[0], data.cooltime[0]);
                     }
                     else
                     {
-                        w.LevelUp(data.damages[level], data.counts[level]);
+                        w.LevelUp(data.damages[level], data.cooltime[level]);
                     }
                 }
                 level++; // 무기 공통 레벨 증가

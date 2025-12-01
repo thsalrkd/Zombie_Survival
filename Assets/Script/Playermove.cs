@@ -70,10 +70,9 @@ public class Playermove : MonoBehaviour
         if (!GameManager.instance.isLive || isDead)
             return;
 
-        //rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-
         Vector2 nextPos = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
 
+        //stage가 4 이상일 경우 플레이어 y축 움직임 범위 제한
         if (GameManager.instance.currentStage >= 4)
         {
             nextPos.y = Mathf.Clamp(nextPos.y, -6.0f, 5.5f);
